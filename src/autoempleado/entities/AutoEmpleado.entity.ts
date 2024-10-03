@@ -1,5 +1,3 @@
-import { Auto } from "src/auto/entities/Auto.entity";
-import { Empleado } from "src/empleado/entities/Empleado.entity";
 import {
   Column,
   Entity,
@@ -8,6 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Empleado } from "./Empleado";
+import { Auto } from "./Auto";
 
 @Index("id_empleado_responsable", ["idEmpleadoResponsable"], {})
 @Index("id_auto", ["idAuto"], {})

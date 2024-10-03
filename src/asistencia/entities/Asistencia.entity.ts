@@ -1,5 +1,3 @@
-import { Empleado } from "src/empleado/entities/Empleado.entity";
-import { TipoAsistencia } from "src/tipoasistencia/entities/TipoAsistencia.entity";
 import {
   Column,
   Entity,
@@ -8,6 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Empleado } from "./Empleado";
+import { TipoAsistencia } from "./TipoAsistencia";
 
 @Index("id_tipo_asistencia", ["idTipoAsistencia"], {})
 @Index("id_empleado", ["idEmpleado"], {})

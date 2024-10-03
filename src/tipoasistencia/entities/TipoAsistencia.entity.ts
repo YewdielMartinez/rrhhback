@@ -1,6 +1,5 @@
-import { Asistencia } from "src/asistencia/entities/Asistencia.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Asistencia } from "./Asistencia";
 
 @Entity("tipos_asistencias", { schema: "isback" })
 export class TipoAsistencia {

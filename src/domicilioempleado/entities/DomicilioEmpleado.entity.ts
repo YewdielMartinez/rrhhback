@@ -1,6 +1,6 @@
-import { Domicilio } from "src/domicilio/entities/Domicilio.entity";
-import { Empleado } from "src/empleado/entities/Empleado.entity";
 import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Domicilio } from "./Domicilio";
+import { Empleado } from "./Empleado";
 
 @Index("id_empleado", ["idEmpleado"], {})
 @Entity("domicilios_empleados", { schema: "isback" })

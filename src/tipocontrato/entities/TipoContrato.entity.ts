@@ -1,6 +1,5 @@
-import { Contrato } from "src/contrato/entities/Contrato.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Contrato } from "./Contrato";
 
 @Entity("tipos_contratos", { schema: "isback" })
 export class TipoContrato {

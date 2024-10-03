@@ -1,7 +1,3 @@
-import { Ciudad } from "src/ciudad/entities/Ciudad.entity";
-import { Domicilio } from "src/domicilio/entities/Domicilio.entity";
-import { Estado } from "src/estado/entities/Estado.entity";
-import { Pais } from "src/pais/entities/Pais.entity";
 import {
   Column,
   Entity,
@@ -11,6 +7,10 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Ciudad } from "./Ciudad";
+import { Domicilio } from "./Domicilio";
+import { Estado } from "./Estado";
+import { Pais } from "./Pais";
 
 @Index("id_pais", ["idPais"], {})
 @Index("id_estado", ["idEstado"], {})

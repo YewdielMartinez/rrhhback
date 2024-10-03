@@ -1,6 +1,5 @@
-import { LicenciaManejo } from "src/licenciamanejo/entities/LicenciaManejo.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { LicenciaManejo } from "./LicenciaManejo";
 
 @Entity("tipos_licencias_manejo", { schema: "isback" })
 export class TipoLicenciaManejo {

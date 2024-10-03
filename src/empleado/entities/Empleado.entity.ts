@@ -1,20 +1,3 @@
-import { Asistencia } from "src/asistencia/entities/Asistencia.entity";
-import { AutoEmpleado } from "src/autoempleado/entities/AutoEmpleado.entity";
-import { Contacto } from "src/contacto/entities/Contacto.entity";
-import { ContactoBeneficiario } from "src/contactobeneficiario/entities/ContactoBeneficiario.entity";
-import { ContactoEmergencia } from "src/contactoemergencia/entities/ContactoEmergencia.entity";
-import { Contrato } from "src/contrato/entities/Contrato.entity";
-import { Departamento } from "src/departamento/entities/Departamento.entity";
-import { DiasVacaciones } from "src/diasvacaciones/entities/DiasVacaciones.entity";
-import { DomicilioEmpleado } from "src/domicilioempleado/entities/DomicilioEmpleado.entity";
-import { EstadoCivil } from "src/estadocivil/entities/EstadoCivil.entity";
-import { LicenciaManejo } from "src/licenciamanejo/entities/LicenciaManejo.entity";
-import { Nacionalidad } from "src/nacionalidad/entities/Nacionalidad.entity";
-import { Permiso } from "src/permiso/entities/Permiso.entity";
-import { Puesto } from "src/puesto/entities/Puesto.entity";
-import { Sucursal } from "src/sucursal/entities/Sucursal.entity";
-import { TipoEmpleado } from "src/tipoempleado/entities/TipoEmpleado.entity";
-import { Usuario } from "src/usuario/entities/Usuario.entity";
 import {
   Column,
   Entity,
@@ -24,6 +7,23 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Asistencia } from "./Asistencia";
+import { AutoEmpleado } from "./AutoEmpleado";
+import { ContactoBeneficiario } from "./ContactoBeneficiario";
+import { ContactoEmergencia } from "./ContactoEmergencia";
+import { Contrato } from "./Contrato";
+import { DomicilioEmpleado } from "./DomicilioEmpleado";
+import { Sucursal } from "./Sucursal";
+import { TipoEmpleado } from "./TipoEmpleado";
+import { Departamento } from "./Departamento";
+import { Contacto } from "./Contacto";
+import { Puesto } from "./Puesto";
+import { EstadoCivil } from "./EstadoCivil";
+import { DiasVacaciones } from "./DiasVacaciones";
+import { Nacionalidad } from "./Nacionalidad";
+import { LicenciaManejo } from "./LicenciaManejo";
+import { Permiso } from "./Permiso";
+import { Usuario } from "./Usuario";
 
 @Index("rfc", ["rfc"], { unique: true })
 @Index("nss", ["nss"], { unique: true })

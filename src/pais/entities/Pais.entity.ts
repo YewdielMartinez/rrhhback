@@ -1,8 +1,8 @@
-import { Ciudad } from "src/ciudad/entities/Ciudad.entity";
-import { Domicilio } from "src/domicilio/entities/Domicilio.entity";
-import { Estado } from "src/estado/entities/Estado.entity";
-import { Municipio } from "src/municipio/entities/Municipio.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Ciudad } from "./Ciudad";
+import { Domicilio } from "./Domicilio";
+import { Estado } from "./Estado";
+import { Municipio } from "./Municipio";
 
 @Entity("paises", { schema: "isback" })
 export class Pais {

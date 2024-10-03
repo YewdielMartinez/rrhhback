@@ -1,6 +1,3 @@
-import { Empleado } from "src/empleado/entities/Empleado.entity";
-import { FrecuenciaPago } from "src/frecuenciapago/entities/FrecuenciaPago.entity";
-import { TipoContrato } from "src/tipocontrato/entities/TipoContrato.entity";
 import {
   Column,
   Entity,
@@ -9,6 +6,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { FrecuenciaPago } from "./FrecuenciaPago";
+import { TipoContrato } from "./TipoContrato";
+import { Empleado } from "./Empleado";
 
 @Index("id_tipo_contrato", ["idTipoContrato"], {})
 @Index("id_frecuencia_pago", ["idFrecuenciaPago"], {})

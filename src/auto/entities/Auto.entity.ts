@@ -1,4 +1,3 @@
-import { AutoEmpleado } from "src/autoempleado/entities/AutoEmpleado.entity";
 import {
   Column,
   Entity,
@@ -6,6 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { AutoEmpleado } from "./AutoEmpleado";
 
 @Index("numero_serie", ["numeroSerie"], { unique: true })
 @Index("IDX_c2afcd233af24c8db7969038e3", ["numeroSerie"], { unique: true })

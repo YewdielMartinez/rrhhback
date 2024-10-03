@@ -1,4 +1,3 @@
-import { Empleado } from "src/empleado/entities/Empleado.entity";
 import {
   Column,
   Entity,
@@ -7,6 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Empleado } from "./Empleado";
 
 @Index("id_empleado", ["idEmpleado"], {})
 @Entity("contactos_emergencias", { schema: "isback" })

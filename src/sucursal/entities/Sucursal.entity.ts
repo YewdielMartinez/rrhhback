@@ -1,5 +1,3 @@
-import { Domicilio } from "src/domicilio/entities/Domicilio.entity";
-import { Empleado } from "src/empleado/entities/Empleado.entity";
 import {
   Column,
   Entity,
@@ -9,6 +7,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Empleado } from "./Empleado";
+import { Domicilio } from "./Domicilio";
 
 @Index("id_domicilio", ["idDomicilio"], {})
 @Entity("sucursales", { schema: "isback" })

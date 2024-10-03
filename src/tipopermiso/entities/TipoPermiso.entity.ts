@@ -1,6 +1,5 @@
-import { Permiso } from "src/permiso/entities/Permiso.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Permiso } from "./Permiso";
 
 @Entity("tipos_permisos", { schema: "isback" })
 export class TipoPermiso {
