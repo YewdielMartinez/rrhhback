@@ -6,15 +6,15 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { TipoLicenciaManejo } from "./TipoLicenciaManejo";
-import { Empleado } from "./Empleado";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
+import { TipoLicenciaManejo } from 'src/tipolicenciamanejo/entities/TipoLicenciaManejo.entity';
 
-@Index("id_tipo_licencia_manejo", ["idTipoLicenciaManejo"], {})
 @Index("id_empleado", ["idEmpleado"], {})
-@Entity("licencias_manejo", { schema: "isback" })
+@Index("id_tipo_licencia_manejo", ["idTipoLicenciaManejo"], {})
+@Entity("licencias_manejo", { schema: "bdrrhh" })
 export class LicenciaManejo {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_licencia_manejo" })
+  idLicenciaManejo: number;
 
   @Column("varchar", { name: "licencia", length: 50 })
   licencia: string;
@@ -39,6 +39,13 @@ export class LicenciaManejo {
   })
   updateDate: Date | null;
 
+  @ManyToOne(() => Empleado, (empleados) => empleados.licenciasManejos, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_empleado", referencedColumnName: "idEmpleado" }])
+  idEmpleado2: Empleado;
+
   @ManyToOne(
     () => TipoLicenciaManejo,
     (tiposLicenciasManejo) => tiposLicenciasManejo.licenciasManejos,
@@ -51,11 +58,4 @@ export class LicenciaManejo {
     },
   ])
   idTipoLicenciaManejo2: TipoLicenciaManejo;
-
-  @ManyToOne(() => Empleado, (empleados) => empleados.licenciasManejos, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_empleado", referencedColumnName: "idEmpleado" }])
-  idEmpleado2: Empleado;
 }

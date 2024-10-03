@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Empleado } from "./Empleado";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
 
-@Entity("contactos", { schema: "isback" })
+@Entity("contactos", { schema: "bdrrhh" })
 export class Contacto {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_contacto" })
+  idContacto: number;
 
   @Column("varchar", { name: "email_laboral", nullable: true, length: 100 })
   emailLaboral: string | null;

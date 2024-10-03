@@ -6,15 +6,15 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Empleado } from "./Empleado";
-import { Auto } from "./Auto";
+import { Auto } from 'src/auto/entities/Auto.entity';
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
 
-@Index("id_empleado_responsable", ["idEmpleadoResponsable"], {})
 @Index("id_auto", ["idAuto"], {})
-@Entity("autos_empleados", { schema: "isback" })
+@Index("id_empleado_responsable", ["idEmpleadoResponsable"], {})
+@Entity("autos_empleados", { schema: "bdrrhh" })
 export class AutoEmpleado {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_registro" })
+  idRegistro: number;
 
   @Column("int", { name: "id_auto" })
   idAuto: number;
@@ -42,6 +42,13 @@ export class AutoEmpleado {
   })
   updateDate: Date | null;
 
+  @ManyToOne(() => Auto, (autos) => autos.autosEmpleados, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_auto", referencedColumnName: "idAuto" }])
+  idAuto2: Auto;
+
   @ManyToOne(() => Empleado, (empleados) => empleados.autosEmpleados, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
@@ -50,11 +57,4 @@ export class AutoEmpleado {
     { name: "id_empleado_responsable", referencedColumnName: "idEmpleado" },
   ])
   idEmpleadoResponsable2: Empleado;
-
-  @ManyToOne(() => Auto, (autos) => autos.autosEmpleados, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_auto", referencedColumnName: "idAuto" }])
-  idAuto2: Auto;
 }

@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Empleado } from "./Empleado";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
 
-@Entity("dias_vacaciones", { schema: "isback" })
+@Entity("dias_vacaciones", { schema: "bdrrhh" })
 export class DiasVacaciones {
-  @PrimaryGeneratedColumn({ type: "tinyint", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "tinyint", name: "id_dias_vacaciones" })
+  idDiasVacaciones: number;
 
   @Column("tinyint", { name: "dias_vacaciones" })
   diasVacaciones: number;

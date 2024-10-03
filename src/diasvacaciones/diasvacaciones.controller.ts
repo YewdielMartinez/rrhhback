@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { DiasvacacionesService } from './diasvacaciones.service';
-import { CreateDiasvacacioneDto } from './dto/create-diasvacacione.dto';
-import { UpdateDiasvacacioneDto } from './dto/update-diasvacacione.dto';
+import { CreateDiasvacacionesDto } from './dto/create-diasvacaciones.dto';
+import { UpdateDiasvacacionesDto } from './dto/update-diasvacaciones.dto';
 
 @Controller('diasvacaciones')
 export class DiasvacacionesController {
   constructor(private readonly diasvacacionesService: DiasvacacionesService) {}
 
   @Post()
-  create(@Body() createDiasvacacioneDto: CreateDiasvacacioneDto) {
+  create(@Body() createDiasvacacioneDto: CreateDiasvacacionesDto) {
     return this.diasvacacionesService.create(createDiasvacacioneDto);
   }
 
@@ -23,7 +23,7 @@ export class DiasvacacionesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDiasvacacioneDto: UpdateDiasvacacioneDto) {
+  update(@Param('id') id: string, @Body() updateDiasvacacioneDto: UpdateDiasvacacionesDto) {
     return this.diasvacacionesService.update(+id, updateDiasvacacioneDto);
   }
 

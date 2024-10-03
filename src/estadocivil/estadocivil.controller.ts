@@ -1,34 +1,34 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { EstadocivilService } from './estadocivil.service';
+import { EstadocivileService } from './estadocivil.service';
 import { CreateEstadocivilDto } from './dto/create-estadocivil.dto';
 import { UpdateEstadocivilDto } from './dto/update-estadocivil.dto';
 
 @Controller('estadocivil')
 export class EstadocivilController {
-  constructor(private readonly estadocivilService: EstadocivilService) {}
+  constructor(private readonly estadocivileService: EstadocivileService) {}
 
   @Post()
-  create(@Body() createEstadocivilDto: CreateEstadocivilDto) {
-    return this.estadocivilService.create(createEstadocivilDto);
+  create(@Body() createEstadocivileDto: CreateEstadocivilDto) {
+    return this.estadocivileService.create(createEstadocivileDto);
   }
 
   @Get()
   findAll() {
-    return this.estadocivilService.findAll();
+    return this.estadocivileService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.estadocivilService.findOne(+id);
+    return this.estadocivileService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEstadocivilDto: UpdateEstadocivilDto) {
-    return this.estadocivilService.update(+id, updateEstadocivilDto);
+  update(@Param('id') id: string, @Body() updateEstadocivileDto: UpdateEstadocivilDto) {
+    return this.estadocivileService.update(+id, updateEstadocivileDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.estadocivilService.remove(+id);
+    return this.estadocivileService.remove(+id);
   }
 }

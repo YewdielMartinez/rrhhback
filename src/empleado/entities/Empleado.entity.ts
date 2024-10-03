@@ -7,42 +7,39 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Asistencia } from "./Asistencia";
-import { AutoEmpleado } from "./AutoEmpleado";
-import { ContactoBeneficiario } from "./ContactoBeneficiario";
-import { ContactoEmergencia } from "./ContactoEmergencia";
-import { Contrato } from "./Contrato";
-import { DomicilioEmpleado } from "./DomicilioEmpleado";
-import { Sucursal } from "./Sucursal";
-import { TipoEmpleado } from "./TipoEmpleado";
-import { Departamento } from "./Departamento";
-import { Contacto } from "./Contacto";
-import { Puesto } from "./Puesto";
-import { EstadoCivil } from "./EstadoCivil";
-import { DiasVacaciones } from "./DiasVacaciones";
-import { Nacionalidad } from "./Nacionalidad";
-import { LicenciaManejo } from "./LicenciaManejo";
-import { Permiso } from "./Permiso";
-import { Usuario } from "./Usuario";
+import { Asistencia } from 'src/asistencia/entities/Asistencia.entity';
+import { AutoEmpleado } from 'src/autoempleado/entities/AutoEmpleado.entity';
+import { ContactoBeneficiario } from 'src/contactobeneficiario/entities/ContactoBeneficiario.entity';
+import { ContactoEmergencia } from 'src/contactoemergencia/entities/ContactoEmergencia.entity';
+import { Contrato } from 'src/contrato/entities/Contrato.entity';
+import { DomicilioEmpleado } from 'src/domicilioempleado/entities/DomicilioEmpleado.entity';
+import { Contacto } from 'src/contacto/entities/Contacto.entity';
+import { Nacionalidad } from 'src/nacionalidad/entities/Nacionalidad.entity';
+import { Sucursal } from 'src/sucursal/entities/Sucursal.entity';
+import { Departamento } from 'src/departamento/entities/Departamento.entity';
+import { Puesto } from 'src/puesto/entities/Puesto.entity';
+import { TipoEmpleado } from 'src/tipoempleado/entities/TipoEmpleado.entity';
+import { DiasVacaciones } from 'src/diasvacaciones/entities/DiasVacaciones.entity';
+import { LicenciaManejo } from 'src/licenciamanejo/entities/LicenciaManejo.entity';
+import { Permiso } from 'src/permiso/entities/Permiso.entity';
+import { Usuario } from 'src/usuario/entities/Usuario.entity';
+import { EstadoCivil } from "src/estadocivil/entities/EstadoCivil.entity";
 
-@Index("rfc", ["rfc"], { unique: true })
-@Index("nss", ["nss"], { unique: true })
 @Index("curp", ["curp"], { unique: true })
-@Index("IDX_92155f48e8f7d99c6318a29fcc", ["curp"], { unique: true })
-@Index("IDX_8b634e3f1e881e9ea1f74fc0fc", ["rfc"], { unique: true })
-@Index("IDX_47667a49256f2589d7fb4786d7", ["nss"], { unique: true })
-@Index("id_tipo_empleado", ["idTipoEmpleado"], {})
-@Index("id_sucursal", ["idSucursal"], {})
-@Index("id_puesto", ["idPuesto"], {})
-@Index("id_nacionalidad", ["idNacionalidad"], {})
-@Index("id_estado_civil", ["idEstadoCivil"], {})
-@Index("id_dias_vacaciones", ["idDiasVacaciones"], {})
-@Index("id_departamento", ["idDepartamento"], {})
 @Index("id_contacto", ["idContacto"], {})
-@Entity("empleados", { schema: "isback" })
+@Index("id_departamento", ["idDepartamento"], {})
+@Index("id_dias_vacaciones", ["idDiasVacaciones"], {})
+@Index("id_estado_civil", ["idEstadoCivil"], {})
+@Index("id_nacionalidad", ["idNacionalidad"], {})
+@Index("id_puesto", ["idPuesto"], {})
+@Index("id_sucursal", ["idSucursal"], {})
+@Index("id_tipo_empleado", ["idTipoEmpleado"], {})
+@Index("nss", ["nss"], { unique: true })
+@Index("rfc", ["rfc"], { unique: true })
+@Entity("empleados", { schema: "bdrrhh" })
 export class Empleado {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_empleado" })
+  idEmpleado: number;
 
   @Column("varchar", { name: "nombre_empleado", length: 50 })
   nombreEmpleado: string;
@@ -139,32 +136,6 @@ export class Empleado {
   )
   domiciliosEmpleados: DomicilioEmpleado[];
 
-  @ManyToOne(() => Sucursal, (sucursales) => sucursales.empleados, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_sucursal", referencedColumnName: "idSucursal" }])
-  idSucursal2: Sucursal;
-
-  @ManyToOne(
-    () => TipoEmpleado,
-    (tiposEmpleados) => tiposEmpleados.empleados,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_tipo_empleado", referencedColumnName: "idTipoEmpleado" },
-  ])
-  idTipoEmpleado2: TipoEmpleado;
-
-  @ManyToOne(() => Departamento, (departamentos) => departamentos.empleados, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([
-    { name: "id_departamento", referencedColumnName: "idDepartamento" },
-  ])
-  idDepartamento2: Departamento;
-
   @ManyToOne(() => Contacto, (contactos) => contactos.empleados, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
@@ -172,12 +143,15 @@ export class Empleado {
   @JoinColumn([{ name: "id_contacto", referencedColumnName: "idContacto" }])
   idContacto2: Contacto;
 
-  @ManyToOne(() => Puesto, (puestos) => puestos.empleados, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_puesto", referencedColumnName: "idPuesto" }])
-  idPuesto2: Puesto;
+  @ManyToOne(
+    () => Nacionalidad,
+    (nacionalidades) => nacionalidades.empleados,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([
+    { name: "id_nacionalidad", referencedColumnName: "idNacionalidad" },
+  ])
+  idNacionalidad2: Nacionalidad;
 
   @ManyToOne(
     () => EstadoCivil,
@@ -189,6 +163,39 @@ export class Empleado {
   ])
   idEstadoCivil2: EstadoCivil;
 
+  @ManyToOne(() => Sucursal, (sucursales) => sucursales.empleados, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_sucursal", referencedColumnName: "idSucursal" }])
+  idSucursal2: Sucursal;
+
+  @ManyToOne(() => Departamento, (departamentos) => departamentos.empleados, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([
+    { name: "id_departamento", referencedColumnName: "idDepartamento" },
+  ])
+  idDepartamento2: Departamento;
+
+  @ManyToOne(() => Puesto, (puestos) => puestos.empleados, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_puesto", referencedColumnName: "idPuesto" }])
+  idPuesto2: Puesto;
+
+  @ManyToOne(
+    () => TipoEmpleado,
+    (tiposEmpleados) => tiposEmpleados.empleados,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([
+    { name: "id_tipo_empleado", referencedColumnName: "idTipoEmpleado" },
+  ])
+  idTipoEmpleado2: TipoEmpleado;
+
   @ManyToOne(
     () => DiasVacaciones,
     (diasVacaciones) => diasVacaciones.empleados,
@@ -198,16 +205,6 @@ export class Empleado {
     { name: "id_dias_vacaciones", referencedColumnName: "idDiasVacaciones" },
   ])
   idDiasVacaciones2: DiasVacaciones;
-
-  @ManyToOne(
-    () => Nacionalidad,
-    (nacionalidades) => nacionalidades.empleados,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_nacionalidad", referencedColumnName: "idNacionalidad" },
-  ])
-  idNacionalidad2: Nacionalidad;
 
   @OneToMany(
     () => LicenciaManejo,

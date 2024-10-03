@@ -7,14 +7,14 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Empleado } from "./Empleado";
-import { Domicilio } from "./Domicilio";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
+import { Domicilio } from 'src/domicilio/entities/Domicilio.entity';
 
 @Index("id_domicilio", ["idDomicilio"], {})
-@Entity("sucursales", { schema: "isback" })
+@Entity("sucursales", { schema: "bdrrhh" })
 export class Sucursal {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_sucursal" })
+  idSucursal: number;
 
   @Column("varchar", { name: "nombre_sucursal", length: 20 })
   nombreSucursal: string;

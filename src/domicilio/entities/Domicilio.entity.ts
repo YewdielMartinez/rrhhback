@@ -7,21 +7,21 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Pais } from "./Pais";
-import { Municipio } from "./Municipio";
-import { Ciudad } from "./Ciudad";
-import { Estado } from "./Estado";
-import { DomicilioEmpleado } from "./DomicilioEmpleado";
-import { Sucursal } from "./Sucursal";
+import { Pais } from 'src/pais/entities/Pais.entity';
+import { Estado } from 'src/estado/entities/Estado.entity';
+import { Municipio } from 'src/municipio/entities/Municipio.entity';
+import { Ciudad } from 'src/ciudad/entities/Ciudad.entity';
+import { DomicilioEmpleado } from 'src/domicilioempleado/entities/DomicilioEmpleado.entity';
+import { Sucursal } from 'src/sucursal/entities/Sucursal.entity';
 
-@Index("id_pais", ["idPais"], {})
-@Index("id_municipio", ["idMunicipio"], {})
-@Index("id_estado", ["idEstado"], {})
 @Index("id_ciudad", ["idCiudad"], {})
-@Entity("domicilios", { schema: "isback" })
+@Index("id_estado", ["idEstado"], {})
+@Index("id_municipio", ["idMunicipio"], {})
+@Index("id_pais", ["idPais"], {})
+@Entity("domicilios", { schema: "bdrrhh" })
 export class Domicilio {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_domicilio" })
+  idDomicilio: number;
 
   @Column("smallint", { name: "id_pais" })
   idPais: number;
@@ -65,6 +65,13 @@ export class Domicilio {
   @JoinColumn([{ name: "id_pais", referencedColumnName: "idPais" }])
   idPais2: Pais;
 
+  @ManyToOne(() => Estado, (estados) => estados.domicilios, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_estado", referencedColumnName: "idEstado" }])
+  idEstado2: Estado;
+
   @ManyToOne(() => Municipio, (municipios) => municipios.domicilios, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
@@ -78,13 +85,6 @@ export class Domicilio {
   })
   @JoinColumn([{ name: "id_ciudad", referencedColumnName: "idCiudad" }])
   idCiudad2: Ciudad;
-
-  @ManyToOne(() => Estado, (estados) => estados.domicilios, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_estado", referencedColumnName: "idEstado" }])
-  idEstado2: Estado;
 
   @OneToMany(
     () => DomicilioEmpleado,

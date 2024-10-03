@@ -5,18 +5,17 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
 } from "typeorm";
-import { Ciudad } from "./Ciudad";
-import { Domicilio } from "./Domicilio";
-import { Pais } from "./Pais";
-import { Municipio } from "./Municipio";
+import { Ciudad } from 'src/ciudad/entities/Ciudad.entity';
+import { Domicilio } from 'src/domicilio/entities/Domicilio.entity';
+import { Pais } from 'src/pais/entities/Pais.entity';
+import { Municipio } from 'src/municipio/entities/Municipio.entity';
 
 @Index("id_pais", ["idPais"], {})
-@Entity("estados", { schema: "isback" })
+@Entity("estados", { schema: "bdrrhh" })
 export class Estado {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @Column("int", { primary: true, name: "id_estado" })
+  idEstado: number;
 
   @Column("varchar", { name: "nombre", length: 50 })
   nombre: string;

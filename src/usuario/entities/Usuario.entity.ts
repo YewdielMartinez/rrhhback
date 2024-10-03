@@ -6,13 +6,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Empleado } from "./Empleado";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
 
 @Index("id_empleado", ["idEmpleado"], {})
-@Entity("usuarios", { schema: "isback" })
+@Entity("usuarios", { schema: "bdrrhh" })
 export class Usuario {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_usuario" })
+  idUsuario: number;
 
   @Column("varchar", { name: "nombre_usuario", length: 50 })
   nombreUsuario: string;
@@ -21,7 +21,7 @@ export class Usuario {
   correo: string;
 
   @Column("varchar", { name: "contraseña", length: 255 })
-  contraseA: string;
+  password: string;
 
   @Column("int", { name: "id_empleado", nullable: true })
   idEmpleado: number | null;

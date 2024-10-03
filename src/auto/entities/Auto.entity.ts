@@ -5,20 +5,19 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { AutoEmpleado } from "./AutoEmpleado";
+import { AutoEmpleado } from 'src/autoempleado/entities/AutoEmpleado.entity';
 
 @Index("numero_serie", ["numeroSerie"], { unique: true })
-@Index("IDX_c2afcd233af24c8db7969038e3", ["numeroSerie"], { unique: true })
-@Entity("autos", { schema: "isback" })
+@Entity("autos", { schema: "bdrrhh" })
 export class Auto {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_auto" })
+  idAuto: number;
 
   @Column("varchar", { name: "nombre_modelo", length: 30 })
   nombreModelo: string;
 
   @Column("char", { name: "año_modelo", length: 4 })
-  aOModelo: string;
+  yearModelo: string;
 
   @Column("varchar", { name: "orden_registro", length: 30 })
   ordenRegistro: string;
@@ -38,7 +37,7 @@ export class Auto {
   @Column("date", { name: "vencimiento_poliza" })
   vencimientoPoliza: string;
 
-  @Column("char", { name: "estatus", length: 2, default: () => "'A'" })
+  @Column("char", { name: "estatus", length: 2, default: 'A' })
   estatus: string;
 
   @Column("timestamp", {

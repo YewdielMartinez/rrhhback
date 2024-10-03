@@ -6,17 +6,17 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { FrecuenciaPago } from "./FrecuenciaPago";
-import { TipoContrato } from "./TipoContrato";
-import { Empleado } from "./Empleado";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
+import { TipoContrato } from 'src/tipocontrato/entities/TipoContrato.entity';
+import { FrecuenciaPago } from 'src/frecuenciapago/entities/FrecuenciaPago.entity';
 
-@Index("id_tipo_contrato", ["idTipoContrato"], {})
-@Index("id_frecuencia_pago", ["idFrecuenciaPago"], {})
 @Index("id_empleado", ["idEmpleado"], {})
-@Entity("contratos", { schema: "isback" })
+@Index("id_frecuencia_pago", ["idFrecuenciaPago"], {})
+@Index("id_tipo_contrato", ["idTipoContrato"], {})
+@Entity("contratos", { schema: "bdrrhh" })
 export class Contrato {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_contrato" })
+  idContrato: number;
 
   @Column("int", { name: "id_empleado" })
   idEmpleado: number;
@@ -71,15 +71,12 @@ export class Contrato {
   })
   updateDate: Date | null;
 
-  @ManyToOne(
-    () => FrecuenciaPago,
-    (frecuenciasPago) => frecuenciasPago.contratos,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_frecuencia_pago", referencedColumnName: "idFrecuenciaPago" },
-  ])
-  idFrecuenciaPago2: FrecuenciaPago;
+  @ManyToOne(() => Empleado, (empleados) => empleados.contratos, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_empleado", referencedColumnName: "idEmpleado" }])
+  idEmpleado2: Empleado;
 
   @ManyToOne(
     () => TipoContrato,
@@ -91,10 +88,13 @@ export class Contrato {
   ])
   idTipoContrato2: TipoContrato;
 
-  @ManyToOne(() => Empleado, (empleados) => empleados.contratos, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_empleado", referencedColumnName: "idEmpleado" }])
-  idEmpleado2: Empleado;
+  @ManyToOne(
+    () => FrecuenciaPago,
+    (frecuenciasPago) => frecuenciasPago.contratos,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([
+    { name: "id_frecuencia_pago", referencedColumnName: "idFrecuenciaPago" },
+  ])
+  idFrecuenciaPago2: FrecuenciaPago;
 }

@@ -1,13 +1,13 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Ciudad } from "./Ciudad";
-import { Domicilio } from "./Domicilio";
-import { Estado } from "./Estado";
-import { Municipio } from "./Municipio";
+import { Column, Entity, OneToMany } from "typeorm";
+import { Ciudad } from 'src/ciudad/entities/Ciudad.entity';
+import { Domicilio } from 'src/domicilio/entities/Domicilio.entity';
+import { Estado } from 'src/estado/entities/Estado.entity';
+import { Municipio } from 'src/municipio/entities/Municipio.entity';
 
-@Entity("paises", { schema: "isback" })
+@Entity("paises", { schema: "bdrrhh" })
 export class Pais {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @Column("smallint", { primary: true, name: "id_pais" })
+  idPais: number;
 
   @Column("varchar", { name: "nombre", length: 50 })
   nombre: string;

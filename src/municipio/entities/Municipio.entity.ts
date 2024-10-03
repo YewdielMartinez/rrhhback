@@ -5,19 +5,18 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
 } from "typeorm";
-import { Ciudad } from "./Ciudad";
-import { Domicilio } from "./Domicilio";
-import { Estado } from "./Estado";
-import { Pais } from "./Pais";
+import { Ciudad } from 'src/ciudad/entities/Ciudad.entity';
+import { Domicilio } from 'src/domicilio/entities/Domicilio.entity';
+import { Pais } from 'src/pais/entities/Pais.entity';
+import { Estado } from 'src/estado/entities/Estado.entity';
 
-@Index("id_pais", ["idPais"], {})
 @Index("id_estado", ["idEstado"], {})
-@Entity("municipios", { schema: "isback" })
+@Index("id_pais", ["idPais"], {})
+@Entity("municipios", { schema: "bdrrhh" })
 export class Municipio {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @Column("int", { primary: true, name: "id_municipio" })
+  idMunicipio: number;
 
   @Column("varchar", { name: "nombre", length: 50 })
   nombre: string;
@@ -48,17 +47,17 @@ export class Municipio {
   @OneToMany(() => Domicilio, (domicilios) => domicilios.idMunicipio2)
   domicilios: Domicilio[];
 
-  @ManyToOne(() => Estado, (estados) => estados.municipios, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_estado", referencedColumnName: "idEstado" }])
-  idEstado2: Estado;
-
   @ManyToOne(() => Pais, (paises) => paises.municipios, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "id_pais", referencedColumnName: "idPais" }])
   idPais2: Pais;
+
+  @ManyToOne(() => Estado, (estados) => estados.municipios, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "id_estado", referencedColumnName: "idEstado" }])
+  idEstado2: Estado;
 }

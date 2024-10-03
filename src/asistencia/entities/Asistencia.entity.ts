@@ -6,15 +6,15 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Empleado } from "./Empleado";
-import { TipoAsistencia } from "./TipoAsistencia";
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
+import { TipoAsistencia } from 'src/tipoasistencia/entities/TipoAsistencia.entity';
 
-@Index("id_tipo_asistencia", ["idTipoAsistencia"], {})
 @Index("id_empleado", ["idEmpleado"], {})
-@Entity("asistencias", { schema: "isback" })
+@Index("id_tipo_asistencia", ["idTipoAsistencia"], {})
+@Entity("asistencias", { schema: "bdrrhh" })
 export class Asistencia {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_asistencia" })
+  idAsistencia: number;
 
   @Column("int", { name: "id_empleado" })
   idEmpleado: number;

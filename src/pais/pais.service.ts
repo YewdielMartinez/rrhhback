@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePaiDto } from './dto/create-pai.dto';
-import { UpdatePaiDto } from './dto/update-pai.dto';
+import { CreatePaisDto } from './dto/create-pais.dto';
+import { UpdatePaisDto } from './dto/update-pais.dto';
 
 @Injectable()
 export class PaisService {
-  create(createPaiDto: CreatePaiDto) {
+  create(createPaiDto: CreatePaisDto) {
     return 'This action adds a new pai';
   }
 
@@ -16,7 +16,7 @@ export class PaisService {
     return `This action returns a #${id} pai`;
   }
 
-  update(id: number, updatePaiDto: UpdatePaiDto) {
+  update(id: number, updatePaiDto: UpdatePaisDto) {
     return `This action updates a #${id} pai`;
   }
 

@@ -6,16 +6,16 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { TipoPermiso } from "./TipoPermiso";
-import { Empleado } from "./Empleado";
+import { TipoPermiso } from 'src/tipopermiso/entities/TipoPermiso.entity';
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
 
-@Index("id_tipo_permiso", ["idTipoPermiso"], {})
-@Index("id_empleado_aprobacion", ["idEmpleadoAprobacion"], {})
 @Index("id_empleado", ["idEmpleado"], {})
-@Entity("permisos", { schema: "isback" })
+@Index("id_empleado_aprobacion", ["idEmpleadoAprobacion"], {})
+@Index("id_tipo_permiso", ["idTipoPermiso"], {})
+@Entity("permisos", { schema: "bdrrhh" })
 export class Permiso {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "int", name: "id_permiso" })
+  idPermiso: number;
 
   @Column("tinyint", { name: "id_tipo_permiso" })
   idTipoPermiso: number;

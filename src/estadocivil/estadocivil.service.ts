@@ -3,24 +3,24 @@ import { CreateEstadocivilDto } from './dto/create-estadocivil.dto';
 import { UpdateEstadocivilDto } from './dto/update-estadocivil.dto';
 
 @Injectable()
-export class EstadocivilService {
-  create(createEstadocivilDto: CreateEstadocivilDto) {
-    return 'This action adds a new estadocivil';
+export class EstadocivileService {
+  create(createEstadocivileDto: CreateEstadocivilDto) {
+    return 'This action adds a new estadocivile';
   }
 
   findAll() {
-    return `This action returns all estadocivil`;
+    return `This action returns all estadocivile`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} estadocivil`;
+    return `This action returns a #${id} estadocivile`;
   }
 
-  update(id: number, updateEstadocivilDto: UpdateEstadocivilDto) {
-    return `This action updates a #${id} estadocivil`;
+  update(id: number, updateEstadocivileDto: UpdateEstadocivilDto) {
+    return `This action updates a #${id} estadocivile`;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} estadocivil`;
+    return `This action removes a #${id} estadocivile`;
   }
 }

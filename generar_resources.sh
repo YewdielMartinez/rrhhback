@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Ruta donde están las entidades generadas
-ENTITY_PATH="./output/entities"
+ENTITY_PATH="./entities"
 
 # Ruta donde se moverán los archivos .entity.ts
 TARGET_PATH="./src"

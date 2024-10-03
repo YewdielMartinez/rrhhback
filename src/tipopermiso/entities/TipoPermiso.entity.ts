@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Permiso } from "./Permiso";
+import { Permiso } from 'src/permiso/entities/Permiso.entity';
 
-@Entity("tipos_permisos", { schema: "isback" })
+@Entity("tipos_permisos", { schema: "bdrrhh" })
 export class TipoPermiso {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "tinyint", name: "id_tipo_permiso" })
+  idTipoPermiso: number;
 
   @Column("varchar", { name: "nombre_permiso", length: 50 })
   nombrePermiso: string;

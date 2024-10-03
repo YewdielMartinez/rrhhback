@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Contrato } from "./Contrato";
+import { Contrato } from 'src/contrato/entities/Contrato.entity';
 
-@Entity("frecuencias_pago", { schema: "isback" })
+@Entity("frecuencias_pago", { schema: "bdrrhh" })
 export class FrecuenciaPago {
-  @PrimaryGeneratedColumn({ type: "int", name: "id" })
-  id: number;
+  @PrimaryGeneratedColumn({ type: "tinyint", name: "id_frecuencia_pago" })
+  idFrecuenciaPago: number;
 
   @Column("varchar", { name: "periodicidad", length: 20 })
   periodicidad: string;
