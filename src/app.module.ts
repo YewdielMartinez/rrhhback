@@ -31,6 +31,7 @@ import { TipoempleadoModule } from './tipoempleado/tipoempleado.module';
 import { TipolicenciamanejoModule } from './tipolicenciamanejo/tipolicenciamanejo.module';
 import { TipopermisoModule } from './tipopermiso/tipopermiso.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -72,6 +73,7 @@ import { UsuarioModule } from './usuario/usuario.module';
     TipolicenciamanejoModule,
     TipopermisoModule,
     UsuarioModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

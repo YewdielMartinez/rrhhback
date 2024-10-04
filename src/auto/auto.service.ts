@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAutoDto } from './dto/create-auto.dto';
 import { UpdateAutoDto } from './dto/update-auto.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Auto } from './entities/Auto.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AutoService {
+
+  constructor(
+    @InjectRepository(Auto)
+    private readonly autoRepository: Repository<Auto>,
+  ) {}
+
   create(createAutoDto: CreateAutoDto) {
-    return 'This action adds a new auto';
+    return this.autoRepository.save(createAutoDto);
   }
 
   findAll() {
-    return `This action returns all auto`;
+    return this.autoRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} auto`;
+    return this.autoRepository.findOne({ where: { idAuto: id } });
   }
 
-  update(id: number, updateAutoDto: UpdateAutoDto) {
-    return `This action updates a #${id} auto`;
+  async update(id: number, updateAutoDto: UpdateAutoDto) {
+    await this.autoRepository.update(id, updateAutoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} auto`;
+  async remove(id: number) {
+    await this.autoRepository.delete(id);
   }
 }
