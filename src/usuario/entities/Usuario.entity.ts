@@ -26,6 +26,9 @@ export class Usuario {
   @Column("int", { name: "id_empleado", nullable: true })
   idEmpleado: number | null;
 
+  @Column({ name: "is_admin", nullable: true, default: false })
+  isAdmin: boolean | null;
+
   @Column("timestamp", {
     name: "createdate",
     nullable: true,
