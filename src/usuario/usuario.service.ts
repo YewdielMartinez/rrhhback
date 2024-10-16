@@ -4,6 +4,7 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from './entities/Usuario.entity';
 import { Repository } from 'typeorm';
+import { SingleWrapper } from 'src/common/SingleWrapper';
 
 @Injectable()
 export class UsuarioService {
@@ -25,8 +26,15 @@ export class UsuarioService {
     return this.usuarioRepository.findOne({ where: { correo } });
   }
 
-  findById(id: number): Promise<Usuario> {
-    return this.usuarioRepository.findOne({ where: { idUsuario: id } });
+  async findById(id: number): Promise<SingleWrapper<Usuario>> {
+   const user = await this.usuarioRepository.findOne({ where: { idUsuario: id } });
+   const wrapper: SingleWrapper<Usuario> = {
+    result: user,
+    message: "Encontrado correctamente",
+    responseCode: 200
+   }
+
+   return wrapper
   }
 
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto): Promise<void> {

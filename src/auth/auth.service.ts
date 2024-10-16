@@ -3,31 +3,41 @@ import { UsuarioService } from 'src/usuario/usuario.service';
 import { LogInDto } from './dto/LogInDto';
 import { UsuarioLogIn } from './dto/usuario-log-in.dto';
 import { SignUpUserDto } from './dto/sign-up-user.dto';
+import { SingleWrapper } from 'src/common/SingleWrapper';
+import { Usuario } from 'src/usuario/entities/Usuario.entity';
 
 @Injectable()
 export class AuthService {
+  constructor(private usersService: UsuarioService) {}
 
-  constructor(
-    private usersService: UsuarioService
-  ) {}
+  async logIn(logInDto: LogInDto): Promise<SingleWrapper<UsuarioLogIn>> {
+    try {
+      const user = await this.usersService.findByEmail(logInDto.correo);
 
-  async logIn(logInDto: LogInDto){
-    const user = await this.usersService.findByEmail(logInDto.correo);
+      if (user.password !== logInDto.password) {
+        throw new UnauthorizedException();
+      }
 
-    console.log(JSON.stringify(user, null, 2)); // !
+      const { password, ...usuarioSinPassword } = user;
+      const usuarioLogIn: UsuarioLogIn = usuarioSinPassword as UsuarioLogIn;
 
-    if (user.password !== logInDto.password) {
-      throw new UnauthorizedException();
+      const wrapper: SingleWrapper<UsuarioLogIn> = {
+        result: usuarioLogIn,
+        message: 'login succesful',
+        responseCode: 200,
+      };
+
+      return wrapper;
+    } catch (error) {
+      return {
+        message: 'error ocurred',
+        responseCode: 500,
+        result: null,
+      };
     }
-
-    const { password, ...usuarioSinPassword } = user;
-    const usuarioLogIn: UsuarioLogIn = usuarioSinPassword as UsuarioLogIn;
-
-    return usuarioLogIn;
   }
-  
-  async signUp(signUpUserDto :SignUpUserDto){
+
+  async signUp(signUpUserDto: SignUpUserDto) {
     return this.usersService.create(signUpUserDto);
   }
-
 }
