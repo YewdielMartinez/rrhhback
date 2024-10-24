@@ -20,7 +20,7 @@ export class Usuario {
   @Column("varchar", { name: "correo", length: 100 })
   correo: string;
 
-  @Column("varchar", { name: "contraseña", length: 255 })
+  @Column("varchar", { name: "password", length: 255 })
   password: string;
 
   @Column("int", { name: "id_empleado", nullable: true })

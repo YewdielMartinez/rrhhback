@@ -4,7 +4,6 @@ import { LogInDto } from './dto/LogInDto';
 import { UsuarioLogIn } from './dto/usuario-log-in.dto';
 import { SignUpUserDto } from './dto/sign-up-user.dto';
 import { SingleWrapper } from 'src/common/SingleWrapper';
-import { Usuario } from 'src/usuario/entities/Usuario.entity';
 
 @Injectable()
 export class AuthService {

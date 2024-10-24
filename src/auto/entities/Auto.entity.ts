@@ -16,7 +16,7 @@ export class Auto {
   @Column("varchar", { name: "nombre_modelo", length: 30 })
   nombreModelo: string;
 
-  @Column("char", { name: "año_modelo", length: 4 })
+  @Column("char", { name: "year_modelo", length: 4 })
   yearModelo: string;
 
   @Column("varchar", { name: "orden_registro", length: 30 })

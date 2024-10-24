@@ -34,10 +34,20 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'localhost',
+    //   port: 3307,
+    //   username: 'root',
+    //   password: 'root',
+    //   database: 'isback',
+    //   entities: [__dirname + '/**/*.entity{.ts,.js}'], // Importa tus entidades aquí
+    //   synchronize: true, // Solo para desarrollo, crea automáticamente tablas
+    // }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3307,
+      port: 3306,
       username: 'root',
       password: 'root',
       database: 'isback',
