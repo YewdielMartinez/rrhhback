@@ -11,6 +11,7 @@ import { AsistenciaService } from './asistencia.service';
 import { CreateAsistenciaDto } from './dto/create-asistencia.dto';
 import { UpdateAsistenciaDto } from './dto/update-asistencia.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { FinalizarAsistenciaDto } from './dto/finalizar-asistencia.dto';
 
 @ApiTags('Asistencia')
 @Controller('asistencia')
@@ -32,7 +33,7 @@ export class AsistenciaController {
     return this.asistenciaService.findOne(+id);
   }
 
-  @Get('byUser:id')
+  @Get('byUser/:id')
   findByUser(@Param('id') id: string) {
     return this.asistenciaService.findByUser(+id);
   }
@@ -43,6 +44,17 @@ export class AsistenciaController {
     @Body() updateAsistenciaDto: UpdateAsistenciaDto,
   ) {
     return this.asistenciaService.update(+id, updateAsistenciaDto);
+  }
+
+  @Patch('finalziarAsistencia/:id')
+  updateAsistenciaFin(
+    @Param('id') id: string,
+    @Body() finalizarAsistenciaDto: FinalizarAsistenciaDto,
+  ) {
+    return this.asistenciaService.finalizarAsistencia(
+      +id,
+      finalizarAsistenciaDto,
+    );
   }
 
   @Delete(':id')
