@@ -1,8 +1,18 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { AsistenciaService } from './asistencia.service';
 import { CreateAsistenciaDto } from './dto/create-asistencia.dto';
 import { UpdateAsistenciaDto } from './dto/update-asistencia.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Asistencia')
 @Controller('asistencia')
 export class AsistenciaController {
   constructor(private readonly asistenciaService: AsistenciaService) {}
@@ -22,8 +32,16 @@ export class AsistenciaController {
     return this.asistenciaService.findOne(+id);
   }
 
+  @Get('byUser:id')
+  findByUser(@Param('id') id: string) {
+    return this.asistenciaService.findByUser(+id);
+  }
+
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAsistenciaDto: UpdateAsistenciaDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateAsistenciaDto: UpdateAsistenciaDto,
+  ) {
     return this.asistenciaService.update(+id, updateAsistenciaDto);
   }
 

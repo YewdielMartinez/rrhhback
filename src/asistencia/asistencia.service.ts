@@ -1,26 +1,47 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAsistenciaDto } from './dto/create-asistencia.dto';
 import { UpdateAsistenciaDto } from './dto/update-asistencia.dto';
+import { Asistencia } from './entities/Asistencia.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SingleWrapper } from 'src/common/SingleWrapper';
 
 @Injectable()
 export class AsistenciaService {
+  constructor(
+    @InjectRepository(Asistencia)
+    private readonly asistenciaRepository: Repository<Asistencia>,
+  ) {}
+
   create(createAsistenciaDto: CreateAsistenciaDto) {
-    return 'This action adds a new asistencia';
+    return this.asistenciaRepository.save(createAsistenciaDto);
   }
 
   findAll() {
-    return `This action returns all asistencia`;
+    return this.asistenciaRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} asistencia`;
+  async findOne(id: number) {
+    const asistencia = await this.asistenciaRepository.findOne({ where: { idAsistencia: id } });
+
+    const wrapper: SingleWrapper<Asistencia> = {
+      message: "Encontrado correctamente",
+      responseCode: 200,
+      result: asistencia
+    }
+
+    return wrapper
   }
 
-  update(id: number, updateAsistenciaDto: UpdateAsistenciaDto) {
-    return `This action updates a #${id} asistencia`;
+  findByUser(id: number) {
+    return this.asistenciaRepository.findOne({ where: { idEmpleado: id } });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} asistencia`;
+  async update(id: number, updateAsistenciaDto: UpdateAsistenciaDto) {
+    return await this.asistenciaRepository.update(id, updateAsistenciaDto);
+  }
+
+  async remove(id: number) {
+    return await this.asistenciaRepository.delete(id);
   }
 }

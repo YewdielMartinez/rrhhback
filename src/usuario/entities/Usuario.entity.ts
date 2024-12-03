@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { Empleado } from 'src/empleado/entities/Empleado.entity';
 
-@Index("id_empleado", ["idEmpleado"], {})
+@Index("id_empleado", ["idEmpleado"], {}) // Definimos el índice correctamente
 @Entity("usuarios", { schema: "bdrrhh" })
 export class Usuario {
   @PrimaryGeneratedColumn({ type: "int", name: "id_usuario" })
@@ -23,8 +23,8 @@ export class Usuario {
   @Column("varchar", { name: "password", length: 255 })
   password: string;
 
-  @Column("int", { name: "id_empleado", nullable: true })
-  idEmpleado: number | null;
+  @Column("int", { name: "id_usuario_padre", nullable: true })
+  idUsuarioPadre: number | null;
 
   @Column({ name: "is_admin", nullable: true, default: false })
   isAdmin: boolean | null;
@@ -43,10 +43,13 @@ export class Usuario {
   })
   updatedate: Date | null;
 
+  @Column("int", { name: "id_empleado", nullable: true }) // Aseguramos que se defina la columna explícitamente
+  idEmpleado: number | null;
+
   @ManyToOne(() => Empleado, (empleados) => empleados.usuarios, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "id_empleado", referencedColumnName: "idEmpleado" }])
-  idEmpleado2: Empleado;
+  idUsuarioPadre2: Empleado;
 }
