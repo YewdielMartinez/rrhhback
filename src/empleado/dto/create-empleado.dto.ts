@@ -3,10 +3,6 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateEmpleadoDto {
   @ApiProperty()
-  @IsNumber()
-  idEmpleado: number;
-
-  @ApiProperty()
   @IsString()
   nombreEmpleado: string;
 
