@@ -93,10 +93,7 @@ export class Empleado {
   @Column('tinyint', { name: 'id_dias_vacaciones' })
   idDiasVacaciones: number;
 
-  @Column('tinyint', { name: 'vacaciones_restantes' })
-  vacacionesRestantes: number;
-
-  @Column('char', { name: 'estatus', length: 2 })
+  @Column('char', { name: 'estatus', length: 1 })
   estatus: string;
 
   @Column('timestamp', {

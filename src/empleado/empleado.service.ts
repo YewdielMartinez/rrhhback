@@ -1,26 +1,47 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEmpleadoDto } from './dto/create-empleado.dto';
 import { UpdateEmpleadoDto } from './dto/update-empleado.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Empleado } from './entities/Empleado.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class EmpleadoService {
-  create(createEmpleadoDto: CreateEmpleadoDto) {
-    return 'This action adds a new empleado';
+  constructor(
+    @InjectRepository(Empleado)
+    private readonly empleadoRepository: Repository<Empleado>,
+  ) {}
+
+  // Crear un empleado
+  async create(createEmpleadoDto: CreateEmpleadoDto): Promise<Empleado> {
+    const nuevoEmpleado = this.empleadoRepository.create(createEmpleadoDto);
+    return this.empleadoRepository.save(nuevoEmpleado);
   }
 
-  findAll() {
-    return `This action returns all empleado`;
+  // Obtener todos los empleados
+  async findAll(): Promise<Empleado[]> {
+    return this.empleadoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} empleado`;
+  // Obtener un empleado por ID
+  async findOne(id: number): Promise<Empleado> {
+    const empleado = await this.empleadoRepository.findOne({ where: { idEmpleado: id } });
+    if (!empleado) {
+      throw new NotFoundException(`Empleado con ID ${id} no encontrado`);
+    }
+    return empleado;
   }
 
-  update(id: number, updateEmpleadoDto: UpdateEmpleadoDto) {
-    return `This action updates a #${id} empleado`;
+  // Actualizar un empleado
+  async update(id: number, updateEmpleadoDto: UpdateEmpleadoDto): Promise<Empleado> {
+    const empleado = await this.findOne(id); // Verifica si el empleado existe
+    const empleadoActualizado = Object.assign(empleado, updateEmpleadoDto);
+    return this.empleadoRepository.save(empleadoActualizado);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} empleado`;
+  // Eliminar un empleado
+  async remove(id: number): Promise<void> {
+    const empleado = await this.findOne(id); // Verifica si el empleado existe
+    await this.empleadoRepository.remove(empleado);
   }
 }

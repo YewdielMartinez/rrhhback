@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AutoService } from './auto.service';
 import { CreateAutoDto } from './dto/create-auto.dto';
 import { UpdateAutoDto } from './dto/update-auto.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auto')
 @Controller('auto')
 export class AutoController {
   constructor(private readonly autoService: AutoService) {}

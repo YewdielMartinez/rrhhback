@@ -19,50 +19,13 @@ export class AutoService {
   }
 
   async findAll() {
-    try {
-      const autos = await this.autoRepository.find();
-
-      const wrapper: Wrapper<Auto> = {
-        message: 'autos found',
-        responseCode: 200,
-        result: autos,
-      };
-
-      return wrapper;
-    } catch (error) {
-      const autos = await this.autoRepository.find();
-
-      const wrapper: Wrapper<Auto> = {
-        message: 'Error getting autos',
-        responseCode: 500,
-        result: null,
-      };
-
-      return wrapper;
-    }
+    return await this.autoRepository.find();
   }
 
   async findOne(id: number) {
-    try {
-      const autoFound = await this.autoRepository.findOne({
-        where: { idAuto: id },
-      });
-
-      const wrapper: SingleWrapper<Auto> = {
-        message: 'auto found',
-        responseCode: 200,
-        result: autoFound,
-      };
-
-      return wrapper;
-    } catch (error) {
-      const wrapper: SingleWrapper<Auto> = {
-        message: 'auto not found',
-        responseCode: 404,
-        result: null,
-      };
-      return wrapper;
-    }
+    return await this.autoRepository.findOne({
+      where: { idAuto: id },
+    });
   }
 
   async update(id: number, updateAutoDto: UpdateAutoDto) {
