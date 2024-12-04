@@ -22,4 +22,9 @@ export class SignUpUserDto {
   @IsNumber()
   @ApiProperty()
   idEmpleado: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty()
+  idUsuarioPadre: number;
 }

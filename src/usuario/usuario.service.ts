@@ -8,14 +8,13 @@ import { SingleWrapper } from 'src/common/SingleWrapper';
 
 @Injectable()
 export class UsuarioService {
-
   constructor(
     @InjectRepository(Usuario)
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
 
-  create(createUsuarioDto: CreateUsuarioDto) {
-    return this.usuarioRepository.save(createUsuarioDto);
+  async create(createUsuarioDto: CreateUsuarioDto) {
+    await this.usuarioRepository.save(createUsuarioDto);
   }
 
   findAll(): Promise<Usuario[]> {
@@ -27,14 +26,16 @@ export class UsuarioService {
   }
 
   async findById(id: number): Promise<SingleWrapper<Usuario>> {
-   const user = await this.usuarioRepository.findOne({ where: { idUsuario: id } });
-   const wrapper: SingleWrapper<Usuario> = {
-    result: user,
-    message: "Encontrado correctamente",
-    responseCode: 200
-   }
+    const user = await this.usuarioRepository.findOne({
+      where: { idUsuario: id },
+    });
+    const wrapper: SingleWrapper<Usuario> = {
+      result: user,
+      message: 'Encontrado correctamente',
+      responseCode: 200,
+    };
 
-   return wrapper
+    return wrapper;
   }
 
   async update(id: number, updateUsuarioDto: UpdateUsuarioDto): Promise<void> {

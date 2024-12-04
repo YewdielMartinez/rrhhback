@@ -6,7 +6,6 @@ import { AsistenciaModule } from './asistencia/asistencia.module';
 import { AutoModule } from './auto/auto.module';
 import { AutoempleadoModule } from './autoempleado/autoempleado.module';
 import { CiudadModule } from './ciudad/ciudad.module';
-import { ContactoModule } from './contacto/contacto.module';
 import { ContactobeneficiarioModule } from './contactobeneficiario/contactobeneficiario.module';
 import { ContactoemergenciaModule } from './contactoemergencia/contactoemergencia.module';
 import { ContratoModule } from './contrato/contrato.module';
@@ -58,7 +57,6 @@ import { AuthModule } from './auth/auth.module';
     AutoModule,
     AutoempleadoModule,
     CiudadModule,
-    ContactoModule,
     ContactobeneficiarioModule,
     ContactoemergenciaModule,
     ContratoModule,
