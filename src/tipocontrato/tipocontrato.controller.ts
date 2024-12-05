@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TipocontratoService } from './tipocontrato.service';
 import { CreateTipocontratoDto } from './dto/create-tipocontrato.dto';
 import { UpdateTipocontratoDto } from './dto/update-tipocontrato.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Tipo contrato')
 @Controller('tipocontrato')
 export class TipocontratoController {
   constructor(private readonly tipocontratoService: TipocontratoService) {}

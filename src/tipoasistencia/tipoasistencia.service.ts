@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTipoasistenciaDto } from './dto/create-tipoasistencia.dto';
 import { UpdateTipoasistenciaDto } from './dto/update-tipoasistencia.dto';
+import { TipoAsistencia } from './entities/TipoAsistencia.entity';
 
 @Injectable()
 export class TipoasistenciaService {
-  create(createTipoasistenciaDto: CreateTipoasistenciaDto) {
-    return 'This action adds a new tipoasistencia';
+  constructor(
+    @InjectRepository(TipoAsistencia)
+    private readonly tipoAsistenciaRepository: Repository<TipoAsistencia>,
+  ) {}
+
+  async create(createTipoasistenciaDto: CreateTipoasistenciaDto): Promise<TipoAsistencia> {
+    const nuevoTipoAsistencia = this.tipoAsistenciaRepository.create(createTipoasistenciaDto);
+    return this.tipoAsistenciaRepository.save(nuevoTipoAsistencia);
   }
 
-  findAll() {
-    return `This action returns all tipoasistencia`;
+  async findAll(): Promise<TipoAsistencia[]> {
+    return this.tipoAsistenciaRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tipoasistencia`;
+  async findOne(id: number): Promise<TipoAsistencia> {
+    const tipoAsistencia = await this.tipoAsistenciaRepository.findOne({ where: { idTipoAsistencia: id } });
+    if (!tipoAsistencia) {
+      throw new NotFoundException(`TipoAsistencia con ID ${id} no encontrado`);
+    }
+    return tipoAsistencia;
   }
 
-  update(id: number, updateTipoasistenciaDto: UpdateTipoasistenciaDto) {
-    return `This action updates a #${id} tipoasistencia`;
+  async update(id: number, updateTipoasistenciaDto: UpdateTipoasistenciaDto): Promise<TipoAsistencia> {
+    const tipoAsistencia = await this.findOne(id);
+    Object.assign(tipoAsistencia, updateTipoasistenciaDto);
+    return this.tipoAsistenciaRepository.save(tipoAsistencia);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tipoasistencia`;
+  async remove(id: number): Promise<void> {
+    const tipoAsistencia = await this.findOne(id);
+    await this.tipoAsistenciaRepository.remove(tipoAsistencia);
   }
 }
