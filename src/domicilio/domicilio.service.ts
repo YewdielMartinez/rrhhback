@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateDomicilioDto } from './dto/create-domicilio.dto';
 import { UpdateDomicilioDto } from './dto/update-domicilio.dto';
+import { Domicilio } from './entities/Domicilio.entity';
 
 @Injectable()
 export class DomicilioService {
-  create(createDomicilioDto: CreateDomicilioDto) {
-    return 'This action adds a new domicilio';
+  constructor(
+    @InjectRepository(Domicilio)
+    private readonly domicilioRepository: Repository<Domicilio>,
+  ) {}
+
+  async create(createDomicilioDto: CreateDomicilioDto): Promise<Domicilio> {
+    const nuevoDomicilio = this.domicilioRepository.create(createDomicilioDto);
+    return this.domicilioRepository.save(nuevoDomicilio);
   }
 
-  findAll() {
-    return `This action returns all domicilio`;
+  async findAll(): Promise<Domicilio[]> {
+    return this.domicilioRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} domicilio`;
+  async findOne(id: number): Promise<Domicilio> {
+    const domicilio = await this.domicilioRepository.findOne({ where: { idDomicilio: id } });
+    if (!domicilio) {
+      throw new NotFoundException(`Domicilio con ID ${id} no encontrado`);
+    }
+    return domicilio;
   }
 
-  update(id: number, updateDomicilioDto: UpdateDomicilioDto) {
-    return `This action updates a #${id} domicilio`;
+  async update(id: number, updateDomicilioDto: UpdateDomicilioDto): Promise<Domicilio> {
+    const domicilio = await this.findOne(id);
+    Object.assign(domicilio, updateDomicilioDto);
+    return this.domicilioRepository.save(domicilio);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} domicilio`;
+  async remove(id: number): Promise<void> {
+    const domicilio = await this.findOne(id);
+    await this.domicilioRepository.remove(domicilio);
   }
 }

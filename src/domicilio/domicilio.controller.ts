@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DomicilioService } from './domicilio.service';
 import { CreateDomicilioDto } from './dto/create-domicilio.dto';
 import { UpdateDomicilioDto } from './dto/update-domicilio.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Domicilio')
 @Controller('domicilio')
 export class DomicilioController {
   constructor(private readonly domicilioService: DomicilioService) {}
