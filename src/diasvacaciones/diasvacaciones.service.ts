@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDiasvacacionesDto } from './dto/create-diasvacaciones.dto';
 import { UpdateDiasvacacionesDto } from './dto/update-diasvacaciones.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,23 +12,31 @@ export class DiasvacacionesService {
     private readonly diasVacacionesRepository: Repository<DiasVacaciones>,
   ) {}
 
-  create(createDiasvacacioneDto: CreateDiasvacacionesDto) {
-    return 'This action adds a new diasvacacione';
+  async create(createDiasvacacioneDto: CreateDiasvacacionesDto): Promise<DiasVacaciones> {
+    const newDiasVacaciones = this.diasVacacionesRepository.create(createDiasvacacioneDto);
+    return await this.diasVacacionesRepository.save(newDiasVacaciones);
   }
 
-  findAll() {
-    return `This action returns all diasvacaciones`;
+  async findAll(): Promise<DiasVacaciones[]> {
+    return await this.diasVacacionesRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} diasvacacione`;
+  async findOne(id: number): Promise<DiasVacaciones> {
+    const diasVacaciones = await this.diasVacacionesRepository.findOne({ where: { idDiasVacaciones: id } });
+    if (!diasVacaciones) {
+      throw new NotFoundException(`DiasVacaciones with ID ${id} not found`);
+    }
+    return diasVacaciones;
   }
 
-  update(id: number, updateDiasvacacioneDto: UpdateDiasvacacionesDto) {
-    return `This action updates a #${id} diasvacacione`;
+  async update(id: number, updateDiasvacacioneDto: UpdateDiasvacacionesDto): Promise<DiasVacaciones> {
+    const diasVacaciones = await this.findOne(id);
+    Object.assign(diasVacaciones, updateDiasvacacioneDto);
+    return await this.diasVacacionesRepository.save(diasVacaciones);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} diasvacacione`;
+  async remove(id: number): Promise<void> {
+    const diasVacaciones = await this.findOne(id);
+    await this.diasVacacionesRepository.remove(diasVacaciones);
   }
 }
