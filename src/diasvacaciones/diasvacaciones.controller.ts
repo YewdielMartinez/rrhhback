@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DiasvacacionesService } from './diasvacaciones.service';
 import { CreateDiasvacacionesDto } from './dto/create-diasvacaciones.dto';
 import { UpdateDiasvacacionesDto } from './dto/update-diasvacaciones.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Dias vacaciones')
 @Controller('diasvacaciones')
 export class DiasvacacionesController {
   constructor(private readonly diasvacacionesService: DiasvacacionesService) {}
