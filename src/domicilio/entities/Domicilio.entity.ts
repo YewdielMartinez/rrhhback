@@ -13,6 +13,7 @@ import { Municipio } from 'src/municipio/entities/Municipio.entity';
 import { Ciudad } from 'src/ciudad/entities/Ciudad.entity';
 import { DomicilioEmpleado } from 'src/domicilioempleado/entities/DomicilioEmpleado.entity';
 import { Sucursal } from 'src/sucursal/entities/Sucursal.entity';
+import { Empleado } from "src/empleado/entities/Empleado.entity";
 
 @Index("id_ciudad", ["idCiudad"], {})
 @Index("id_estado", ["idEstado"], {})
@@ -94,4 +95,7 @@ export class Domicilio {
 
   @OneToMany(() => Sucursal, (sucursales) => sucursales.idDomicilio2)
   sucursales: Sucursal[];
+
+  @OneToMany(() => Empleado, (empleados) => empleados.idDomicilio2)
+  empleados: Empleado[];
 }

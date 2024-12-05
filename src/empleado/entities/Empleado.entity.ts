@@ -5,6 +5,7 @@ import { ContactoEmergencia } from 'src/contactoemergencia/entities/ContactoEmer
 import { Contrato } from 'src/contrato/entities/Contrato.entity';
 import { Departamento } from 'src/departamento/entities/Departamento.entity';
 import { DiasVacaciones } from 'src/diasvacaciones/entities/DiasVacaciones.entity';
+import { Domicilio } from 'src/domicilio/entities/Domicilio.entity';
 import { DomicilioEmpleado } from 'src/domicilioempleado/entities/DomicilioEmpleado.entity';
 import { EstadoCivil } from 'src/estadocivil/entities/EstadoCivil.entity';
 import { LicenciaManejo } from 'src/licenciamanejo/entities/LicenciaManejo.entity';
@@ -30,6 +31,7 @@ import {
 @Index('id_estado_civil', ['idEstadoCivil'], {})
 @Index('id_nacionalidad', ['idNacionalidad'], {})
 @Index('id_puesto', ['idPuesto'], {})
+@Index('id_domicilio', ['idDomicilio'], {})
 @Index('id_sucursal', ['idSucursal'], {})
 @Index('id_tipo_empleado', ['idTipoEmpleado'], {})
 @Index('nss', ['nss'], { unique: true })
@@ -74,6 +76,9 @@ export class Empleado {
 
   @Column('int', { name: 'id_nacionalidad' })
   idNacionalidad: number;
+
+  @Column('int', { name: 'id_domicilio' })
+  idDomicilio: number;
 
   @Column('tinyint', { name: 'id_estado_civil' })
   idEstadoCivil: number;
@@ -180,6 +185,13 @@ export class Empleado {
   })
   @JoinColumn([{ name: 'id_puesto', referencedColumnName: 'idPuesto' }])
   idPuesto2: Puesto;
+
+  @ManyToOne(() => Domicilio, (domicilios) => domicilios.empleados, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  @JoinColumn([{ name: 'id_domicilio', referencedColumnName: 'idDomicilio' }])
+  idDomicilio2: Domicilio;
 
   @ManyToOne(() => TipoEmpleado, (tiposEmpleados) => tiposEmpleados.empleados, {
     onDelete: 'NO ACTION',
