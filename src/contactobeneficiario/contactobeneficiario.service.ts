@@ -1,26 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateContactobeneficiarioDto } from './dto/create-contactobeneficiario.dto';
 import { UpdateContactobeneficiarioDto } from './dto/update-contactobeneficiario.dto';
+import { ContactoBeneficiario } from './entities/ContactoBeneficiario.entity';
 
 @Injectable()
 export class ContactobeneficiarioService {
-  create(createContactobeneficiarioDto: CreateContactobeneficiarioDto) {
-    return 'This action adds a new contactobeneficiario';
+  constructor(
+    @InjectRepository(ContactoBeneficiario)
+    private readonly contactoBeneficiarioRepository: Repository<ContactoBeneficiario>,
+  ) {}
+
+  async create(
+    createContactobeneficiarioDto: CreateContactobeneficiarioDto,
+  ): Promise<ContactoBeneficiario> {
+    const nuevoContacto = this.contactoBeneficiarioRepository.create(
+      createContactobeneficiarioDto,
+    );
+    return this.contactoBeneficiarioRepository.save(nuevoContacto);
   }
 
-  findAll() {
-    return `This action returns all contactobeneficiario`;
+  async findAll(): Promise<ContactoBeneficiario[]> {
+    return this.contactoBeneficiarioRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contactobeneficiario`;
+  async findOne(id: number): Promise<ContactoBeneficiario> {
+    const contacto = await this.contactoBeneficiarioRepository.findOne({
+      where: { idContactoBeneficiario: id },
+    });
+    if (!contacto) {
+      throw new NotFoundException(
+        `ContactoBeneficiario con ID ${id} no encontrado`,
+      );
+    }
+    return contacto;
   }
 
-  update(id: number, updateContactobeneficiarioDto: UpdateContactobeneficiarioDto) {
-    return `This action updates a #${id} contactobeneficiario`;
+  async update(
+    id: number,
+    updateContactobeneficiarioDto: UpdateContactobeneficiarioDto,
+  ): Promise<ContactoBeneficiario> {
+    const contacto = await this.findOne(id);
+    Object.assign(contacto, updateContactobeneficiarioDto);
+    return this.contactoBeneficiarioRepository.save(contacto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contactobeneficiario`;
+  async remove(id: number): Promise<void> {
+    const contacto = await this.findOne(id);
+    await this.contactoBeneficiarioRepository.remove(contacto);
   }
 }

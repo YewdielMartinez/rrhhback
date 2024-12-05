@@ -4,6 +4,7 @@ import { CreateDepartamentoDto } from './dto/create-departamento.dto';
 import { UpdateDepartamentoDto } from './dto/update-departamento.dto';
 import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Departamento')
 @Controller('departamento')
 export class DepartamentoController {
   constructor(private readonly departamentoService: DepartamentoService) {}
