@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateTipoempleadoDto } from './dto/create-tipoempleado.dto';
 import { UpdateTipoempleadoDto } from './dto/update-tipoempleado.dto';
+import { TipoEmpleado } from './entities/TipoEmpleado.entity';
 
 @Injectable()
 export class TipoempleadoService {
-  create(createTipoempleadoDto: CreateTipoempleadoDto) {
-    return 'This action adds a new tipoempleado';
+  constructor(
+    @InjectRepository(TipoEmpleado)
+    private readonly tipoEmpleadoRepository: Repository<TipoEmpleado>,
+  ) {}
+
+  async create(createTipoempleadoDto: CreateTipoempleadoDto): Promise<TipoEmpleado> {
+    const nuevoTipoEmpleado = this.tipoEmpleadoRepository.create(createTipoempleadoDto);
+    return this.tipoEmpleadoRepository.save(nuevoTipoEmpleado);
   }
 
-  findAll() {
-    return `This action returns all tipoempleado`;
+  async findAll(): Promise<TipoEmpleado[]> {
+    return this.tipoEmpleadoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tipoempleado`;
+  async findOne(id: number): Promise<TipoEmpleado> {
+    const tipoEmpleado = await this.tipoEmpleadoRepository.findOne({ where: { idTipoEmpleado: id } });
+    if (!tipoEmpleado) {
+      throw new NotFoundException(`TipoEmpleado con ID ${id} no encontrado`);
+    }
+    return tipoEmpleado;
   }
 
-  update(id: number, updateTipoempleadoDto: UpdateTipoempleadoDto) {
-    return `This action updates a #${id} tipoempleado`;
+  async update(id: number, updateTipoempleadoDto: UpdateTipoempleadoDto): Promise<TipoEmpleado> {
+    const tipoEmpleado = await this.findOne(id);
+    Object.assign(tipoEmpleado, updateTipoempleadoDto);
+    return this.tipoEmpleadoRepository.save(tipoEmpleado);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tipoempleado`;
+  async remove(id: number): Promise<void> {
+    const tipoEmpleado = await this.findOne(id);
+    await this.tipoEmpleadoRepository.remove(tipoEmpleado);
   }
 }
