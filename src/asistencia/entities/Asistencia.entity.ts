@@ -31,8 +31,7 @@ export class Asistencia {
 
   @Column('timestamp', {
     name: 'asistencia_fin',
-    nullable: true,
-    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true
   })
   asistenciaFin: Date | null;
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateAsistenciaDto } from './dto/create-asistencia.dto';
@@ -44,9 +44,18 @@ export class AsistenciaService {
     id: number,
     { asistenciaFin }: FinalizarAsistenciaDto,
   ) {
-    return await this.asistenciaRepository.findOne({
+    const asistencia = await this.asistenciaRepository.findOne({
       where: { idAsistencia: id },
     });
+  
+    if (!asistencia) {
+      throw new NotFoundException(`Asistencia with ID ${id} not found`);
+    }
+  
+    asistencia.asistenciaFin = asistenciaFin;
+  
+    return await this.asistenciaRepository.save(asistencia); 
+    
   }
 
   async remove(id: number) {
