@@ -23,6 +23,10 @@ export class EmpleadoService {
     return this.empleadoRepository.find();
   }
 
+  async findByIdSucursal(idSucursal: number) {
+    return this.empleadoRepository.find({where: {idSucursal}})
+  }
+
   // Obtener un empleado por ID
   async findOne(id: number): Promise<Empleado> {
     const empleado = await this.empleadoRepository.findOne({ where: { idEmpleado: id } });
