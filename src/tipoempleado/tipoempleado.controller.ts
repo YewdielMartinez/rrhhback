@@ -4,7 +4,7 @@ import { CreateTipoempleadoDto } from './dto/create-tipoempleado.dto';
 import { UpdateTipoempleadoDto } from './dto/update-tipoempleado.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('Tiempoempleado')
+@ApiTags('Tipo empleado')
 @Controller('tipoempleado')
 export class TipoempleadoController {
   constructor(private readonly tipoempleadoService: TipoempleadoService) {}
