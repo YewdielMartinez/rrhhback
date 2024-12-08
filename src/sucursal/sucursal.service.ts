@@ -12,23 +12,32 @@ export class SucursalService {
     private readonly sucursalRepository: Repository<Sucursal>,
   ) {}
 
-  create(createSucursalDto: CreateSucursalDto) {
-    return 'This action adds a new sucursal';
+  // Crear una nueva sucursal
+  async create(createSucursalDto: CreateSucursalDto): Promise<Sucursal> {
+    const newSucursal = this.sucursalRepository.create(createSucursalDto);
+    return await this.sucursalRepository.save(newSucursal);
   }
 
-  findAll() {
-    return `This action returns all sucursal`;
+  // Obtener todas las sucursales
+  async findAll(): Promise<Sucursal[]> {
+    return await this.sucursalRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} sucursal`;
+  // Obtener una sucursal por su ID
+  async findOne(id: number): Promise<Sucursal> {
+    return await this.sucursalRepository.findOne({ where: { idSucursal: id } });
   }
 
-  update(id: number, updateSucursalDto: UpdateSucursalDto) {
-    return `This action updates a #${id} sucursal`;
+  // Actualizar una sucursal por su ID
+  async update(id: number, updateSucursalDto: UpdateSucursalDto): Promise<void> {
+    await this.sucursalRepository.update(id, updateSucursalDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} sucursal`;
+  // Eliminar una sucursal por su ID
+  async remove(id: number): Promise<void> {
+    const result = await this.sucursalRepository.delete(id);
+    if (result.affected === 0) {
+      throw new Error(`Sucursal with ID ${id} not found`);
+    }
   }
 }
