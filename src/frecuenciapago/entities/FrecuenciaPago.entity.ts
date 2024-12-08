@@ -6,8 +6,11 @@ export class FrecuenciaPago {
   @PrimaryGeneratedColumn({ type: "tinyint", name: "id_frecuencia_pago" })
   idFrecuenciaPago: number;
 
-  @Column("varchar", { name: "periodicidad", length: 20 })
+  @Column("varchar", { name: "periodicidadNombre", length: 20 })
   periodicidad: string;
+
+  @Column("int", { name: "periodicidadDias" })
+  periodicidadDias: number;
 
   @Column("timestamp", {
     name: "create_date",

@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { TipolicenciamanejoService } from './tipolicenciamanejo.service';
 import { CreateTipolicenciamanejoDto } from './dto/create-tipolicenciamanejo.dto';
 import { UpdateTipolicenciamanejoDto } from './dto/update-tipolicenciamanejo.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Tipo licencia manejo')
 @Controller('tipolicenciamanejo')
 export class TipolicenciamanejoController {
   constructor(private readonly tipolicenciamanejoService: TipolicenciamanejoService) {}
