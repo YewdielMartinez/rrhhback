@@ -19,6 +19,11 @@ export class EmpleadoController {
     return this.empleadoService.findAll();
   }
 
+  @Get('findbysucursal/:idSucursal')
+  findBySucursal(@Param('idSucursal') idSucursal: string) {
+    return this.empleadoService.findByIdSucursal(+idSucursal);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.empleadoService.findOne(+id);

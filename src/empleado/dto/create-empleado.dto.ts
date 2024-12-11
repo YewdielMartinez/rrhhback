@@ -63,6 +63,10 @@ export class CreateEmpleadoDto {
 
   @ApiProperty()
   @IsNumber()
+  idDomicilio: number;
+
+  @ApiProperty()
+  @IsNumber()
   idDepartamento: number;
 
   @ApiProperty()

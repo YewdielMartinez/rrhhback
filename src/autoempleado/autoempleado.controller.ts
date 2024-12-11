@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { AutoempleadoService } from './autoempleado.service';
 import { CreateAutoempleadoDto } from './dto/create-autoempleado.dto';
 import { UpdateAutoempleadoDto } from './dto/update-autoempleado.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Auto-empleado')
 @Controller('autoempleado')
@@ -14,6 +15,7 @@ export class AutoempleadoController {
     return this.autoempleadoService.create(createAutoempleadoDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll() {
     return this.autoempleadoService.findAll();

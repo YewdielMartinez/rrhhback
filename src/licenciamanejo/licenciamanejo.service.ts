@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateLicenciamanejoDto } from './dto/create-licenciamanejo.dto';
 import { UpdateLicenciamanejoDto } from './dto/update-licenciamanejo.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { LicenciaManejo } from './entities/LicenciaManejo.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class LicenciamanejoService {
+  constructor(
+    @InjectRepository(LicenciaManejo)
+    private readonly licenciaManejoRepository: Repository<LicenciaManejo>,
+  ) {}
+
   create(createLicenciamanejoDto: CreateLicenciamanejoDto) {
     return 'This action adds a new licenciamanejo';
   }

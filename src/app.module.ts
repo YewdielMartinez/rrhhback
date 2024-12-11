@@ -33,27 +33,22 @@ import { TipoempleadoModule } from './tipoempleado/tipoempleado.module';
 import { TipolicenciamanejoModule } from './tipolicenciamanejo/tipolicenciamanejo.module';
 import { TipopermisoModule } from './tipopermiso/tipopermiso.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: 'localhost',
-    //   port: 3307,
-    //   username: 'root',
-    //   password: 'root',
-    //   database: 'isback',
-    //   entities: [__dirname + '/**/*.entity{.ts,.js}'], // Importa tus entidades aquí
-    //   synchronize: true, // Solo para desarrollo, crea automáticamente tablas
-    // }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'isback',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'], // Importa tus entidades aquí
-      synchronize: true, // Solo para desarrollo, crea automáticamente tablas
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: configService.get<'mysql'>('DB_TYPE'),
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
     }),
     AsistenciaModule,
     AutoModule,
@@ -84,6 +79,9 @@ import { UsuarioModule } from './usuario/usuario.module';
     TipopermisoModule,
     UsuarioModule,
     AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true, // Hace que el ConfigService esté disponible en todo el proyecto
+    }),
   ],
   controllers: [AppController],
   providers: [

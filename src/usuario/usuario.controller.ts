@@ -19,6 +19,11 @@ export class UsuarioController {
     return this.usuarioService.findAll();
   }
 
+  @Get('findByUsuarioPadre/:idUsuarioPadre')
+  findByUsuarioPadre(@Param('idUsuarioPadre') idUsuarioPadre: string) {
+    return this.usuarioService.findByUsuarioPadre(+idUsuarioPadre);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usuarioService.findById(+id);

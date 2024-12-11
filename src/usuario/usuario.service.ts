@@ -24,6 +24,12 @@ export class UsuarioService {
     return this.usuarioRepository.findOne({ where: { correo } });
   }
 
+  async findByUsuarioPadre(id: number) {
+    return await this.usuarioRepository.find({
+      where: { idUsuarioPadre: id },
+    });
+  }
+
   async findById(id: number) {
     return await this.usuarioRepository.findOne({
       where: { idUsuario: id },
