@@ -33,6 +33,12 @@ export class AsistenciaService {
     });
   }
 
+  async findBySesionTrabajo(id: number) {
+    return await this.asistenciaRepository.findBy({
+      idSesionTrabajo: id,
+    });
+  }
+
   async update(id: number, updateAsistenciaDto: UpdateAsistenciaDto) {
     return await this.asistenciaRepository.update(
       id,

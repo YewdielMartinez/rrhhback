@@ -34,6 +34,7 @@ import { TipolicenciamanejoModule } from './tipolicenciamanejo/tipolicenciamanej
 import { TipopermisoModule } from './tipopermiso/tipopermiso.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { SesionTrabajoModule } from './sesion-trabajo/sesion-trabajo.module';
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -82,6 +83,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true, // Hace que el ConfigService esté disponible en todo el proyecto
     }),
+    SesionTrabajoModule,
   ],
   controllers: [AppController],
   providers: [

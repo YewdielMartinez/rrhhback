@@ -8,9 +8,11 @@ import {
 } from 'typeorm';
 import { Empleado } from 'src/empleado/entities/Empleado.entity';
 import { TipoAsistencia } from 'src/tipoasistencia/entities/TipoAsistencia.entity';
+import { SesionTrabajo } from 'src/sesion-trabajo/entities/sesion-trabajo.entity';
 
 @Index('id_empleado', ['idEmpleado'], {})
 @Index('id_tipo_asistencia', ['idTipoAsistencia'], {})
+@Index('id_sesion_trabajo', ['idSesionTrabajo'], {}) // Índice para la relación con SesionTrabajo
 @Entity('asistencias', { schema: 'bdrrhh' })
 export class Asistencia {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id_asistencia' })
@@ -22,6 +24,9 @@ export class Asistencia {
   @Column('tinyint', { name: 'id_tipo_asistencia' })
   idTipoAsistencia: number;
 
+  @Column('int', { name: 'id_sesion_trabajo', nullable: true }) // Nueva columna para la relación con SesionTrabajo
+  idSesionTrabajo: number | null;
+
   @Column('timestamp', {
     name: 'asistencia_inicio',
     nullable: true,
@@ -31,7 +36,7 @@ export class Asistencia {
 
   @Column('timestamp', {
     name: 'asistencia_fin',
-    nullable: true
+    nullable: true,
   })
   asistenciaFin: Date | null;
 
@@ -72,4 +77,12 @@ export class Asistencia {
     { name: 'id_tipo_asistencia', referencedColumnName: 'idTipoAsistencia' },
   ])
   idTipoAsistencia2: TipoAsistencia;
+
+  @ManyToOne(
+    () => SesionTrabajo,
+    (sesionTrabajo) => sesionTrabajo.idSesionTrabajo,
+    { onDelete: 'SET NULL', onUpdate: 'CASCADE' }, // Configura las opciones de eliminación/actualización
+  )
+  @JoinColumn([{ name: 'id_sesion_trabajo', referencedColumnName: 'idSesionTrabajo' }]) // Configura la columna de unión
+  sesionTrabajo: SesionTrabajo | null;
 }
