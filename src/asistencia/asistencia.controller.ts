@@ -38,6 +38,11 @@ export class AsistenciaController {
     return this.asistenciaService.findByUser(+id);
   }
 
+  @Get('bySesionTrabajo/:id')
+  findBySesionTrabajo(@Param('id') id: string) {
+    return this.asistenciaService.findByUser(+id);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,
