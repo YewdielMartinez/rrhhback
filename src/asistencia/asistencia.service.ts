@@ -18,26 +18,34 @@ export class AsistenciaService {
   }
 
   async findAll() {
-    return await this.asistenciaRepository.find();
+    return await this.asistenciaRepository.find({
+      order: {
+        createDate: 'DESC',
+      },
+    });
   }
 
   async findOne(id: number) {
     return await this.asistenciaRepository.findOne({
-      where: { idAsistencia: id },
+      where: { idAsistencia: id }, 
     });
   }
 
   async findByEmpleado(id: number) {
-    return await this.asistenciaRepository.findBy({
-      idEmpleado: id,
+    return await this.asistenciaRepository.find({
+      where: { idEmpleado: id },
+      order: { createDate: 'DESC' }, // Ordena del más reciente al más antiguo
     });
   }
+  
 
   async findBySesionTrabajo(id: number) {
-    return await this.asistenciaRepository.findBy({
-      idSesionTrabajo: id,
+    return await this.asistenciaRepository.find({
+      where: { idSesionTrabajo: id },
+      order: { createDate: 'DESC' }, // Ordena del más reciente al más antiguo
     });
   }
+  
 
   async update(id: number, updateAsistenciaDto: UpdateAsistenciaDto) {
     return await this.asistenciaRepository.update(
