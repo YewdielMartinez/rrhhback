@@ -27,7 +27,7 @@ export class AsistenciaService {
     });
   }
 
-  async findByUser(id: number) {
+  async findByEmpleado(id: number) {
     return await this.asistenciaRepository.findBy({
       idEmpleado: id,
     });
