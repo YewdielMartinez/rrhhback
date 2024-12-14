@@ -27,4 +27,9 @@ export class CreateUsuarioDto {
   @IsNumber()
   @ApiProperty()
   idUsuarioPadre: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty()
+  isAdmin:boolean;
 }

@@ -27,4 +27,9 @@ export class SignUpUserDto {
   @IsNumber()
   @ApiProperty()
   idUsuarioPadre: number;
+  
+  @IsNotEmpty()
+  @IsNumber()
+  @ApiProperty()
+  isAdmin:boolean;
 }
