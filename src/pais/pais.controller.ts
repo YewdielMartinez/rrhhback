@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PaisService } from './pais.service';
 import { CreatePaisDto } from './dto/create-pais.dto';
 import { UpdatePaisDto } from './dto/update-pais.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Pais')
 @Controller('pais')
 export class PaisController {
   constructor(private readonly paisService: PaisService) {}

@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEstadoDto } from './dto/create-estado.dto';
 import { UpdateEstadoDto } from './dto/update-estado.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Estado } from './entities/Estado.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class EstadoService {
-  create(createEstadoDto: CreateEstadoDto) {
-    return 'This action adds a new estado';
+  constructor(
+    @InjectRepository(Estado)
+    private readonly estadoRepository: Repository<Estado>,
+  ) {}
+
+  async create(createEstadoDto: CreateEstadoDto): Promise<Estado> {
+    const nuevoEstado = this.estadoRepository.create(createEstadoDto);
+    return await this.estadoRepository.save(nuevoEstado);
   }
 
-  findAll() {
-    return `This action returns all estado`;
+  async findAll(): Promise<Estado[]> {
+    return await this.estadoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} estado`;
+  async findOne(id: number): Promise<Estado> {
+    const estado = await this.estadoRepository.findOne({ where: { idEstado: id } });
+    if (!estado) {
+      throw new NotFoundException(`Estado con id ${id} no encontrado`);
+    }
+    return estado;
   }
 
-  update(id: number, updateEstadoDto: UpdateEstadoDto) {
-    return `This action updates a #${id} estado`;
+  async update(id: number, updateEstadoDto: UpdateEstadoDto): Promise<Estado> {
+    const estado = await this.findOne(id);
+    const estadoActualizado = this.estadoRepository.merge(estado, updateEstadoDto);
+    return await this.estadoRepository.save(estadoActualizado);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} estado`;
+  async remove(id: number): Promise<void> {
+    const estado = await this.findOne(id);
+    await this.estadoRepository.remove(estado);
   }
 }
