@@ -33,14 +33,14 @@ export class AsistenciaController {
     return this.asistenciaService.findOne(+id);
   }
 
-  @Get('byUser/:id')
-  findByUser(@Param('id') id: string) {
-    return this.asistenciaService.findByUser(+id);
+  @Get('byEmpleado/:id')
+  findByEmpleado(@Param('id') id: string) {
+    return this.asistenciaService.findByEmpleado(+id);
   }
 
   @Get('bySesionTrabajo/:id')
   findBySesionTrabajo(@Param('id') id: string) {
-    return this.asistenciaService.findByUser(+id);
+    return this.asistenciaService.findBySesionTrabajo(+id);
   }
 
   @Patch(':id')

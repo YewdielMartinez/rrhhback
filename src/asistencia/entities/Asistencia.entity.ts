@@ -41,13 +41,6 @@ export class Asistencia {
   asistenciaFin: Date | null;
 
   @Column('timestamp', {
-    name: 'dia_asistencia',
-    nullable: true,
-    default: () => 'CURRENT_TIMESTAMP',
-  })
-  diaAsistencia: Date | null;
-
-  @Column('timestamp', {
     name: 'create_date',
     nullable: true,
     default: () => 'CURRENT_TIMESTAMP',

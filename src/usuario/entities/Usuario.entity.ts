@@ -1,3 +1,4 @@
+import { Empleado } from 'src/empleado/entities/Empleado.entity';
 import { SesionTrabajo } from 'src/sesion-trabajo/entities/sesion-trabajo.entity';
 import {
   Column,
@@ -9,6 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+@Index('id_empleado', ['idEmpleado'], {})
 @Entity('usuarios', { schema: 'bdrrhh' })
 export class Usuario {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id_usuario' })
@@ -22,6 +24,9 @@ export class Usuario {
 
   @Column('varchar', { name: 'password', length: 255 })
   password: string;
+
+  @Column('int', { name: 'id_empleado', nullable: true })
+  idEmpleado: number | null;
 
   @Column('int', { name: 'id_usuario_padre', nullable: true })
   idUsuarioPadre: number | null;
@@ -45,4 +50,11 @@ export class Usuario {
 
   @OneToMany(() => SesionTrabajo, (sesionTrabajo) => sesionTrabajo.usuario)
   sesionesTrabajo: SesionTrabajo[];
+
+  @ManyToOne(() => Empleado, (empleados) => empleados.usuarios, {
+    onDelete: 'NO ACTION',
+    onUpdate: 'NO ACTION',
+  })
+  @JoinColumn([{ name: 'id_empleado', referencedColumnName: 'idEmpleado' }])
+  idEmpleado2: Empleado;
 }

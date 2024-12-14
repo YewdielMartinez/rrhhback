@@ -22,12 +22,19 @@ export class SesionTrabajoService {
   }
 
   async findAll(): Promise<SesionTrabajo[]> {
-    return await this.sesionTrabajoRepository.find();
+    return await this.sesionTrabajoRepository.find({
+      order: {
+        createDate: 'DESC',
+      },
+    });
   }
 
   async findOne(id: number): Promise<SesionTrabajo> {
     return await this.sesionTrabajoRepository.findOne({
       where: { idSesionTrabajo: id },
+      order: {
+        createDate: 'DESC',
+      },
     });
   }
 
@@ -66,6 +73,9 @@ export class SesionTrabajoService {
     return this.sesionTrabajoRepository.find({
       where: { usuario: { idUsuario } },
       relations: ['usuario'],
+      order: {
+        createDate: 'DESC',
+      },
     });
   }
 }
