@@ -29,6 +29,16 @@ export class SesionTrabajoService {
     });
   }
 
+  async findFullByUserId(idUsuario: number): Promise<SesionTrabajo[]> {
+    return await this.sesionTrabajoRepository.find({
+      where: { usuario: { idUsuario } },
+      relations: ['asistencias'],
+      order: {
+        createDate: 'DESC',
+      },
+    });
+  }
+
   async findOne(id: number): Promise<SesionTrabajo> {
     return await this.sesionTrabajoRepository.findOne({
       where: { idSesionTrabajo: id },
@@ -72,7 +82,6 @@ export class SesionTrabajoService {
   async getAllByIdUsuario(idUsuario: number): Promise<SesionTrabajo[]> {
     return this.sesionTrabajoRepository.find({
       where: { usuario: { idUsuario } },
-      relations: ['usuario'],
       order: {
         createDate: 'DESC',
       },
