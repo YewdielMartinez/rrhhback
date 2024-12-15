@@ -10,8 +10,8 @@ export class CreateAsistenciaDto {
   idTipoAsistencia: number;
   @IsNotEmpty()
   @ApiProperty()
-  asistenciaInicio: Date | null;
+  idSesionTrabajo: number;
   @IsNotEmpty()
   @ApiProperty()
-  diaAsistencia: Date | null;
+  asistenciaInicio: Date | null;
 }
