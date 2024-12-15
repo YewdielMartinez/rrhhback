@@ -28,6 +28,11 @@ export class SesionTrabajoController {
     return this.sesionTrabajoService.findAll();
   }
 
+  @Get('findFullByUser/:id')
+  findFullByUserId(@Param('id') id: string) {
+    return this.sesionTrabajoService.findFullByUserId(+id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sesionTrabajoService.findOne(+id);

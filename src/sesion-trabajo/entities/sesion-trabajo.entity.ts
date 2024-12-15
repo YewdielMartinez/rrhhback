@@ -5,8 +5,10 @@ import {
   ManyToOne,
   JoinColumn,
   Index,
+  OneToMany,
 } from 'typeorm';
 import { Usuario } from 'src/usuario/entities/Usuario.entity';
+import { Asistencia } from 'src/asistencia/entities/Asistencia.entity';
 
 @Entity('sesiones_trabajo', { schema: 'bdrrhh' })
 export class SesionTrabajo {
@@ -36,4 +38,9 @@ export class SesionTrabajo {
   @ManyToOne(() => Usuario, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
   @JoinColumn({ name: 'id_usuario' }) // Vincula esta columna como clave foránea
   usuario?: Usuario; // Opcional: no necesitas siempre cargar el objeto completo
+
+  @OneToMany(() => Asistencia, (asistencia) => asistencia.sesionTrabajo, {
+    cascade: true, // Opcional: si quieres que las asistencias se guarden/eliminar automáticamente con la sesión
+  })
+  asistencias: Asistencia[];
 }
