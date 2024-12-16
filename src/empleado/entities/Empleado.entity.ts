@@ -1,14 +1,11 @@
 import { Asistencia } from 'src/asistencia/entities/Asistencia.entity';
-import { AutoEmpleado } from 'src/autoempleado/entities/AutoEmpleado.entity';
 import { ContactoBeneficiario } from 'src/contactobeneficiario/entities/ContactoBeneficiario.entity';
 import { ContactoEmergencia } from 'src/contactoemergencia/entities/ContactoEmergencia.entity';
 import { Contrato } from 'src/contrato/entities/Contrato.entity';
 import { Departamento } from 'src/departamento/entities/Departamento.entity';
 import { DiasVacaciones } from 'src/diasvacaciones/entities/DiasVacaciones.entity';
 import { Domicilio } from 'src/domicilio/entities/Domicilio.entity';
-import { DomicilioEmpleado } from 'src/domicilioempleado/entities/DomicilioEmpleado.entity';
 import { EstadoCivil } from 'src/estadocivil/entities/EstadoCivil.entity';
-import { LicenciaManejo } from 'src/licenciamanejo/entities/LicenciaManejo.entity';
 import { Nacionalidad } from 'src/nacionalidad/entities/Nacionalidad.entity';
 import { Permiso } from 'src/permiso/entities/Permiso.entity';
 import { Puesto } from 'src/puesto/entities/Puesto.entity';
@@ -119,12 +116,6 @@ export class Empleado {
   asistencias: Asistencia[];
 
   @OneToMany(
-    () => AutoEmpleado,
-    (autosEmpleados) => autosEmpleados.idEmpleadoResponsable2,
-  )
-  autosEmpleados: AutoEmpleado[];
-
-  @OneToMany(
     () => ContactoBeneficiario,
     (contactosBeneficiarios) => contactosBeneficiarios.idEmpleado2,
   )
@@ -138,12 +129,6 @@ export class Empleado {
 
   @OneToMany(() => Contrato, (contratos) => contratos.idEmpleado2)
   contratos: Contrato[];
-
-  @OneToMany(
-    () => DomicilioEmpleado,
-    (domiciliosEmpleados) => domiciliosEmpleados.idEmpleado2,
-  )
-  domiciliosEmpleados: DomicilioEmpleado[];
 
   @ManyToOne(() => Nacionalidad, (nacionalidades) => nacionalidades.empleados, {
     onDelete: 'NO ACTION',
@@ -211,12 +196,6 @@ export class Empleado {
     { name: 'id_dias_vacaciones', referencedColumnName: 'idDiasVacaciones' },
   ])
   idDiasVacaciones2: DiasVacaciones;
-
-  @OneToMany(
-    () => LicenciaManejo,
-    (licenciasManejo) => licenciasManejo.idEmpleado2,
-  )
-  licenciasManejos: LicenciaManejo[];
 
   @OneToMany(() => Permiso, (permisos) => permisos.idEmpleado2)
   permisos: Permiso[];

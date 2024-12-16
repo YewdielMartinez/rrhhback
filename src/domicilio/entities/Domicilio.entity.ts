@@ -11,7 +11,6 @@ import { Pais } from 'src/pais/entities/Pais.entity';
 import { Estado } from 'src/estado/entities/Estado.entity';
 import { Municipio } from 'src/municipio/entities/Municipio.entity';
 import { Ciudad } from 'src/ciudad/entities/Ciudad.entity';
-import { DomicilioEmpleado } from 'src/domicilioempleado/entities/DomicilioEmpleado.entity';
 import { Sucursal } from 'src/sucursal/entities/Sucursal.entity';
 import { Empleado } from "src/empleado/entities/Empleado.entity";
 
@@ -86,12 +85,6 @@ export class Domicilio {
   })
   @JoinColumn([{ name: "id_ciudad", referencedColumnName: "idCiudad" }])
   idCiudad2: Ciudad;
-
-  @OneToMany(
-    () => DomicilioEmpleado,
-    (domiciliosEmpleados) => domiciliosEmpleados.idDomicilio2
-  )
-  domiciliosEmpleados: DomicilioEmpleado[];
 
   @OneToMany(() => Sucursal, (sucursales) => sucursales.idDomicilio2)
   sucursales: Sucursal[];
