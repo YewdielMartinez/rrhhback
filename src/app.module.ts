@@ -30,8 +30,10 @@ import { TipopermisoModule } from './tipopermiso/tipopermiso.module';
 import { UsuarioModule } from './usuario/usuario.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SesionTrabajoModule } from './sesion-trabajo/sesion-trabajo.module';
+import { SeederModule } from './seeder/Seeder.module';
 @Module({
   imports: [
+    SeederModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
