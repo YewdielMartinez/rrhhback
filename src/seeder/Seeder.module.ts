@@ -1,26 +1,24 @@
 import { Module } from '@nestjs/common';
-import { PaisService } from 'src/pais/pais.service'; // Importa solo el servicio
-import { EstadoService } from 'src/estado/estado.service';
-import { MunicipioService } from 'src/municipio/municipio.service';
-import { CiudadService } from 'src/ciudad/ciudad.service';
-import { UsuarioService } from 'src/usuario/usuario.service';
-import { SeederService } from './seeder.service'; // El servicio del Seeder
-import { TipoasistenciaService } from 'src/tipoasistencia/tipoasistencia.service';
+import { SeederService } from './Seeder.service'; 
+import { PaisModule } from 'src/pais/pais.module'; 
+import { EstadoModule } from 'src/estado/estado.module';
+import { MunicipioModule } from 'src/municipio/municipio.module';
+import { CiudadModule } from 'src/ciudad/ciudad.module';
+import { UsuarioModule } from 'src/usuario/usuario.module';
+import { TipoasistenciaModule } from 'src/tipoasistencia/tipoasistencia.module';
+import { SeederController } from './Seeder.controller';
 
 @Module({
   imports: [
-    // Si necesitas entidades, agrégalas aquí
-    // TypeOrmModule.forFeature([]),
+    PaisModule, 
+    EstadoModule, 
+    MunicipioModule, 
+    CiudadModule, 
+    UsuarioModule, 
+    TipoasistenciaModule,
   ],
-  providers: [
-    SeederService, // El SeederService
-    PaisService, // El servicio de Pais
-    EstadoService, // El servicio de Estado
-    MunicipioService, // El servicio de Municipio
-    CiudadService, // El servicio de Ciudad
-    UsuarioService, // El servicio de Usuario
-    TipoasistenciaService, // El servicio de TipoAsistencia
-  ],
-  exports: [SeederService], // Exportamos el SeederService por si lo necesitas en otros módulos
+  controllers: [SeederController],
+  providers: [SeederService],
+  exports: [SeederService], 
 })
 export class SeederModule {}
