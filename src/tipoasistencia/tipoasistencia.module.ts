@@ -8,5 +8,6 @@ import { TipoAsistencia } from './entities/TipoAsistencia.entity';
   imports: [TypeOrmModule.forFeature([TipoAsistencia])],
   controllers: [TipoasistenciaController],
   providers: [TipoasistenciaService],
+  exports: [TipoasistenciaService],
 })
 export class TipoasistenciaModule {}
