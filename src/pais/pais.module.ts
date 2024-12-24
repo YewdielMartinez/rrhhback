@@ -8,5 +8,6 @@ import { Pais } from './entities/Pais.entity';
   imports: [TypeOrmModule.forFeature([Pais])],
   controllers: [PaisController],
   providers: [PaisService],
+  exports: [PaisService],
 })
 export class PaisModule {}
